@@ -15,7 +15,6 @@ class ToDoListController(
 ) {
     @GetMapping()
     fun getToDoLists(): Collection<ToDoList> {
-        println("hello :)")
         return toDoListCrudService.getToDoLists()
     }
 }
