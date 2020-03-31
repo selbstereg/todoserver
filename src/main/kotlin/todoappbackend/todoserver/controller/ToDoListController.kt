@@ -1,12 +1,13 @@
 package todoappbackend.todoserver.controller
 
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Controller
 import todoappbackend.todoserver.service.ToDoListCrudService
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
+import todoappbackend.todoserver.model.ToDoList
 
-@Controller
+@RestController
 @RequestMapping("/api/to-do-lists")
 class ToDoListController(
         @Autowired
