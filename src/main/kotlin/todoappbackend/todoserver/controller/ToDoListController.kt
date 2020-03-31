@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping
 @RequestMapping("/api/to-do-lists")
 class ToDoListController(
         @Autowired
-        val toDoListCrudService: ToDoListCrudService
+        private val toDoListCrudService: ToDoListCrudService
 ) {
     @GetMapping()
-    fun getToDoLists(): Unit {
-        toDoListCrudService.hello();
+    fun getToDoLists() {
+        toDoListCrudService.hello()
     }
 }
