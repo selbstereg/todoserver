@@ -1,10 +1,11 @@
 package todoappbackend.todoserver.service
 
 import org.springframework.stereotype.Component
+import todoappbackend.todoserver.model.ToDoList
 
 @Component
 class ToDoListCrudServiceImpl : ToDoListCrudService {
-    override fun hello() {
-        println("hello :)")
+    override fun getToDoLists(): Collection<ToDoList> {
+        return listOf(ToDoList("Einkaufsliste"))
     }
 }

@@ -1,6 +1,8 @@
 package todoappbackend.todoserver.service
 
+import todoappbackend.todoserver.model.ToDoList
+
 interface ToDoListCrudService {
-    fun hello()
+    fun getToDoLists(): Collection<ToDoList>
 }
 
