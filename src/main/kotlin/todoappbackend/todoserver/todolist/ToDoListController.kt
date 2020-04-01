@@ -19,6 +19,7 @@ class ToDoListController(
         return toDoListCrudService.createToDoList(name)
     }
 
+    // TODO Paul Bauknecht 1.4.2020: Add exception handler for case where to do list with given id is not in db
     @DeleteMapping("/{toDoListId}")
     fun deleteToDoList(@PathVariable toDoListId: Long): ToDoList {
         return toDoListCrudService.deleteToDoList(toDoListId)
