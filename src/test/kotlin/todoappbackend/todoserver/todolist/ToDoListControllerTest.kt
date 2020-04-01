@@ -1,11 +1,12 @@
-package todoappbackend.todoserver.controller
+package todoappbackend.todoserver.todolist
 
 import io.mockk.every
 import io.mockk.mockk
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import todoappbackend.todoserver.model.ToDoList
-import todoappbackend.todoserver.service.ToDoListCrudService
+import todoappbackend.todoserver.todolist.ToDoList
+import todoappbackend.todoserver.todolist.ToDoListCrudService
+import todoappbackend.todoserver.todolist.ToDoListController
 
 class ToDoListControllerTest {
     @Test

@@ -1,7 +1,7 @@
-package todoappbackend.todoserver.service
+package todoappbackend.todoserver.todolist
 
 import org.springframework.stereotype.Component
-import todoappbackend.todoserver.model.ToDoList
+import todoappbackend.todoserver.todolist.ToDoList
 
 @Component
 class ToDoListCrudService {
