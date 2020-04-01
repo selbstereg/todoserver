@@ -1,9 +1,7 @@
 package todoappbackend.todoserver.todolist
 
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/to-do-lists")
@@ -14,5 +12,10 @@ class ToDoListController(
     @GetMapping()
     fun getToDoLists(): Collection<ToDoList> {
         return toDoListCrudService.getToDoLists()
+    }
+
+    @PostMapping()
+    fun createToDoList(@RequestBody name: String): ToDoList {
+        return toDoListCrudService.createToDoList(name)
     }
 }

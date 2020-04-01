@@ -8,4 +8,8 @@ class ToDoListCrudService(val toDoListRepo: ToDoListRepo) {
     fun getToDoLists(): Collection<ToDoList> {
         return toDoListRepo.findAll()
     }
+
+    fun createToDoList(name: String): ToDoList {
+        return ToDoList(name)
+    }
 }
