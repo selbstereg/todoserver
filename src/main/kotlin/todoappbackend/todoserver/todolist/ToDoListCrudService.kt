@@ -10,6 +10,6 @@ class ToDoListCrudService(val toDoListRepo: ToDoListRepo) {
     }
 
     fun createToDoList(name: String): ToDoList {
-        return ToDoList(name)
+        return toDoListRepo.save(ToDoList(name))
     }
 }
