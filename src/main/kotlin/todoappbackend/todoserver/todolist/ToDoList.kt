@@ -4,8 +4,8 @@ import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
 
-// TODO: On App startup, Hibernate complains, that the getter for property "name" is final, as it is
-// responsible for its late initialization. What should this class look like, so we benefit
+// TODO: On App startup, Hibernate complains, that the getter for property "name" is final, as it
+// need to override it for lazy initialization. What should this class look like, so we benefit
 // from null safety, JPA is happy and it is hard for a developer
 // to instantiate an uninitialized instance?
 @Entity
