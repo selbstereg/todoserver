@@ -10,10 +10,10 @@ class ToDoListCrudServiceTest {
     fun shouldGetToDoListFromRepo() {
         val expectedToDoLists = listOf(ToDoList("some name"))
         val repo: ToDoListRepo = mockk()
-        val toDoListService = ToDoListCrudService(repo)
+        val toDoListCrudService = ToDoListCrudService(repo)
         every { repo.findAll() } returns expectedToDoLists
 
-        val toDoLists = toDoListService.getToDoLists()
+        val toDoLists = toDoListCrudService.getToDoLists()
 
         assertThat(toDoLists).isEqualTo(expectedToDoLists)
     }
