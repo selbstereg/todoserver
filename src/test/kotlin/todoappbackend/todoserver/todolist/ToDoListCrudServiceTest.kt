@@ -4,6 +4,8 @@ import io.mockk.every
 import io.mockk.mockk
 import io.mockk.slot
 import org.amshove.kluent.`should be`
+import org.amshove.kluent.`should throw`
+import org.amshove.kluent.invoking
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.data.repository.findByIdOrNull
@@ -53,5 +55,14 @@ class ToDoListCrudServiceTest {
         idSlot.captured `should be` toDoListId
         toDoListSlot.captured `should be` expectedToDoList
         deletedToDoList `should be` expectedToDoList
+    }
+
+
+
+    @Test
+    fun `should trow an exception when to do list with given id is not found`() {
+        every { repo.findByIdOrNull(any()) } returns null
+
+        invoking { toDoListCrudService.deleteToDoList(42L) } `should throw` EntityNotFoundException::class
     }
 }

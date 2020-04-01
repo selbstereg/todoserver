@@ -16,7 +16,7 @@ class ToDoListCrudService(val toDoListRepo: ToDoListRepo) {
 
     fun deleteToDoList(id: Long): ToDoList {
         val toDoList = toDoListRepo.findByIdOrNull(id)
-        toDoList?: throw RuntimeException("aaaah!")
+        toDoList?: throw EntityNotFoundException(id)
         toDoListRepo.delete(toDoList)
         return toDoList
     }
