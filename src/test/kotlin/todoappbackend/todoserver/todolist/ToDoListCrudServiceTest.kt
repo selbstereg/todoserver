@@ -4,7 +4,6 @@ import io.mockk.every
 import io.mockk.mockk
 import io.mockk.slot
 import org.amshove.kluent.`should be`
-import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
@@ -20,17 +19,17 @@ class ToDoListCrudServiceTest {
     }
 
     @Test
-    fun `should Get ToDoList From Repo`() {
+    fun `should get to do list from repo`() {
         val expectedToDoLists = listOf(toDoList)
         every { repo.findAll() } returns expectedToDoLists
 
         val toDoLists = toDoListCrudService.getToDoLists()
 
-        assertThat(toDoLists).isEqualTo(expectedToDoLists)
+        toDoLists `should be` expectedToDoLists
     }
 
     @Test
-    internal fun `should create ToDoList with name`() {
+    internal fun `should create to do list with name`() {
         val slot = slot<ToDoList>()
         every { repo.save(capture(slot)) } returns toDoList
 

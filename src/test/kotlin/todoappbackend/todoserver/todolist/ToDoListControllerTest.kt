@@ -2,7 +2,6 @@ package todoappbackend.todoserver.todolist
 
 import io.mockk.*
 import org.amshove.kluent.`should be`
-import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -29,16 +28,16 @@ class ToDoListControllerTest {
     }
 
     @Test
-    fun shouldGetToDoListsFromService() {
+    fun `should get to do lists from service`() {
         every { toDoListServiceMock.getToDoLists() } returns expectedToDoLists
 
         val toDoLists = toDoListController.getToDoLists()
 
-        assertThat(toDoLists).isEqualTo(expectedToDoLists)
+        toDoLists `should be` expectedToDoLists
     }
 
     @Test
-    fun shouldDelegateCreationOfToDoListToService() {
+    fun `should delegate creation of to do lists to service`() {
         val name = "my to do list"
         val slot = slot<String>()
         every { toDoListServiceMock.createToDoList(name = capture(slot)) } returns expectedToDoList
@@ -46,7 +45,7 @@ class ToDoListControllerTest {
         val toDoList = toDoListController.createToDoList(name)
 
         verify(exactly = 1) { toDoListServiceMock.createToDoList(name = name) }
-        assertThat(toDoList).isEqualTo(expectedToDoList)
+        toDoList `should be` expectedToDoList
     }
 
     @Test
