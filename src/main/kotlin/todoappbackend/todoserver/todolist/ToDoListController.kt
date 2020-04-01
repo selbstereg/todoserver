@@ -18,4 +18,9 @@ class ToDoListController(
     fun createToDoList(@RequestBody name: String): ToDoList {
         return toDoListCrudService.createToDoList(name)
     }
+
+    @DeleteMapping("/{toDoListId}")
+    fun deleteToDoList(@PathVariable toDoListId: Long): ToDoList {
+        return toDoListCrudService.deleteToDoList(toDoListId)
+    }
 }

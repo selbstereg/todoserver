@@ -12,4 +12,8 @@ class ToDoListCrudService(val toDoListRepo: ToDoListRepo) {
     fun createToDoList(name: String): ToDoList {
         return toDoListRepo.save(ToDoList(name))
     }
+
+    fun deleteToDoList(id: Long): ToDoList {
+        return ToDoList(id.toString())
+    }
 }

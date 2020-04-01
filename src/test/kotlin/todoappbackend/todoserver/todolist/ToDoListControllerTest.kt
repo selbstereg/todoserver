@@ -1,6 +1,7 @@
 package todoappbackend.todoserver.todolist
 
 import io.mockk.*
+import org.amshove.kluent.`should be`
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
@@ -46,6 +47,18 @@ class ToDoListControllerTest {
 
         verify(exactly = 1) { toDoListServiceMock.createToDoList(name = name) }
         assertThat(toDoList).isEqualTo(expectedToDoList)
+    }
+
+    @Test
+    fun `should delegate deletion of to do list to service`() {
+        val toDoListId = 42L
+        val slot = slot<Long>()
+        every { toDoListServiceMock.deleteToDoList(id = capture(slot)) } returns expectedToDoList
+
+        val toDoList = toDoListController.deleteToDoList(toDoListId)
+
+        verify(exactly = 1) { toDoListServiceMock.deleteToDoList(id = toDoListId) }
+        toDoList `should be` expectedToDoList
     }
 }
 
