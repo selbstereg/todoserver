@@ -1,5 +1,6 @@
 package todoappbackend.todoserver.todolist
 
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Component
 
 @Component
@@ -14,6 +15,9 @@ class ToDoListCrudService(val toDoListRepo: ToDoListRepo) {
     }
 
     fun deleteToDoList(id: Long): ToDoList {
-        return ToDoList(id.toString())
+        val toDoList = toDoListRepo.findByIdOrNull(id)
+        toDoList?: throw RuntimeException("aaaah!")
+        toDoListRepo.delete(toDoList)
+        return toDoList
     }
 }
