@@ -1,13 +1,10 @@
 package todoappbackend.todoserver.todolist
 
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
-import javax.persistence.OneToMany
+import javax.persistence.*
 
 @Entity
 data class ToDoList(val name: String) {
-    @OneToMany
+    @OneToMany(cascade = [CascadeType.ALL])
     var todos: MutableSet<ToDo> = mutableSetOf()
 
     @Id

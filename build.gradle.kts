@@ -27,6 +27,7 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
     }
+    testRuntimeOnly("com.h2database:h2")
     testImplementation("io.mockk:mockk:1.9.3")
     testImplementation("org.amshove.kluent:kluent:1.59")
     testImplementation("com.ninja-squad:springmockk:2.0.0")
