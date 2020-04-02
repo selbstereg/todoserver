@@ -66,7 +66,7 @@ class ToDoListControllerTest {
 
         val createdToDo = toDoListController.addToDo(42L, toDoToCreate)
 
-        verify(exactly = 1) { toDoListServiceMock.addToDo(toToDoListId = 42L, toDo = toDoToCreate) }
+        verify(exactly = 1) { toDoListServiceMock.addToDo(toDoListId = 42L, toDo = toDoToCreate) }
         createdToDo `should be` toDoToCreate
     }
 }

@@ -4,6 +4,7 @@ import io.mockk.every
 import io.mockk.mockk
 import io.mockk.slot
 import org.amshove.kluent.`should be`
+import org.amshove.kluent.`should contain`
 import org.amshove.kluent.`should throw`
 import org.amshove.kluent.invoking
 import org.junit.jupiter.api.BeforeEach
@@ -57,12 +58,23 @@ class ToDoListCrudServiceTest {
         deletedToDoList `should be` expectedToDoList
     }
 
-
-
     @Test
     fun `should trow an exception when to do list with given id is not found`() {
         every { repo.findByIdOrNull(any()) } returns null
 
         invoking { toDoListCrudService.deleteToDoList(42L) } `should throw` EntityNotFoundException::class
+    }
+
+    @Test
+    fun `should add new ToDo to a ToDoList`() {
+        every{repo.findByIdOrNull(42L)} returns ToDoList("AddToThisList")
+        val slot = slot<ToDoList>()
+        every{repo.save(capture(slot))} returns ToDoList("irrelevant")
+
+        val toDoToAdd = ToDo("TestToDo")
+        val addedToDo = toDoListCrudService.addToDo(42L, toDoToAdd)
+
+        slot.captured.todos `should contain` toDoToAdd
+        addedToDo `should be` toDoToAdd
     }
 }
