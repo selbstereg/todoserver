@@ -1,6 +1,9 @@
 package todoappbackend.todoserver.todolist
 
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.HttpStatus
+import org.springframework.http.MediaType
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -19,9 +22,16 @@ class ToDoListController(
         return toDoListCrudService.createToDoList(name)
     }
 
-    // TODO Paul Bauknecht 1.4.2020: Add exception handler for case where to do list with given id is not in db
     @DeleteMapping("/{toDoListId}")
     fun deleteToDoList(@PathVariable toDoListId: Long): ToDoList {
         return toDoListCrudService.deleteToDoList(toDoListId)
+    }
+
+    @ExceptionHandler(EntityNotFoundException::class)
+    fun handleEntityNotFoundException(exception: EntityNotFoundException): ResponseEntity<String> {
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body("\"${exception.message}\"")
     }
 }
