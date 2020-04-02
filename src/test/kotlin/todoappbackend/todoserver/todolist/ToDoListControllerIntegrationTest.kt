@@ -48,6 +48,7 @@ class ToDoListControllerIntegrationTest {
             contentType = MediaType.APPLICATION_JSON
         }.andExpect {
             status { isOk }
+            //TODO: how do we match for json content? Should we add hamkrest as dependency?
 //            jsonPath {("$.id", equals(id))}
         }
 
