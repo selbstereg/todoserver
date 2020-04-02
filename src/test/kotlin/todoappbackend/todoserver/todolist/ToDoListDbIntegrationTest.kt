@@ -16,6 +16,7 @@ class ToDoListDbIntegrationTest {
 
     @Test
     fun `Should save a new ToDo when adding to an existing ToDo list`() {
+        // TODO: Vielleicht darf man manager und repo nicht mischen, wegen hibernate transactions, lifecycle, ...
         val toDoList = ToDoList("TestList")
         val flusehdToDolist = manager.persistFlushFind(toDoList)
 
