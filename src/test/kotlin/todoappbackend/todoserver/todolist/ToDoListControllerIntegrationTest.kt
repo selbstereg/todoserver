@@ -1,18 +1,27 @@
 package todoappbackend.todoserver.todolist
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.ninjasquad.springmockk.MockkBean
 import io.mockk.every
+import io.mockk.slot
+import io.mockk.verify
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
+import org.springframework.http.MediaType
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder.json
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.delete
+import org.springframework.test.web.servlet.post
 
 @WebMvcTest(controllers = [ToDoListController::class])
 class ToDoListControllerIntegrationTest {
 
+    val expectedToDoList: ToDoList = ToDoList("some name")
+
     @Autowired
     private lateinit var mockMvc: MockMvc
+    private lateinit var mapper: ObjectMapper
 
     @MockkBean
     private lateinit var toDoListCrudService: ToDoListCrudService
@@ -26,5 +35,22 @@ class ToDoListControllerIntegrationTest {
             status { isNotFound }
             content { json("\"Entity with id $id not found\"") }
         }
+    }
+
+    @Test
+    fun `Should delegate adding ToDos to ToDoListService`() {
+        val id = 42L
+        every { toDoListCrudService.addToDo(any(), any()) } returns expectedToDoList
+        val toDo = ToDo()
+
+        mockMvc.post("/api/to-do-lists/$id") {
+            content = mapper.writeValueAsString(toDo)
+            contentType = MediaType.APPLICATION_JSON
+        }.andExpect {
+            status { isOk }
+//            jsonPath {("$.id", equals(id))}
+        }
+
+        verify(exactly = 1) { toDoListCrudService.addToDo(toToDoListId= id, toDo = toDo) }
     }
 }

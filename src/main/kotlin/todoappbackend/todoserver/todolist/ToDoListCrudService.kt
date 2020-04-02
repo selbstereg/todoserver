@@ -16,8 +16,12 @@ class ToDoListCrudService(val toDoListRepo: ToDoListRepo) {
 
     fun deleteToDoList(id: Long): ToDoList {
         val toDoList = toDoListRepo.findByIdOrNull(id)
-        toDoList?: throw EntityNotFoundException(id)
+        toDoList ?: throw EntityNotFoundException(id)
         toDoListRepo.delete(toDoList)
         return toDoList
+    }
+
+    fun addToDo(toToDoListId: Long, toDo: ToDo): ToDoList {
+        return ToDoList("")
     }
 }
