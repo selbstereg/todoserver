@@ -27,6 +27,11 @@ class ToDoListController(
         return toDoListCrudService.deleteToDoList(toDoListId)
     }
 
+    @PostMapping("/{toDoListId}")
+    fun addToDo(@PathVariable toDoListId: Long, @RequestBody toDo: ToDo): ToDo {
+        return toDoListCrudService.addToDo(toDoListId, toDo)
+    }
+
     @ExceptionHandler(EntityNotFoundException::class)
     fun handleEntityNotFoundException(exception: EntityNotFoundException): ResponseEntity<String> {
         return ResponseEntity

@@ -1,5 +1,4 @@
 package todoappbackend.todoserver.todolist
 
-class ToDo {
-
+data class ToDo(val name: String = "") {
 }

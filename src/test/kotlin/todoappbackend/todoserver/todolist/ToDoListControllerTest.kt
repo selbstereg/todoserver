@@ -51,13 +51,23 @@ class ToDoListControllerTest {
     @Test
     fun `should delegate deletion of to do list to service`() {
         val toDoListId = 42L
-        val slot = slot<Long>()
-        every { toDoListServiceMock.deleteToDoList(id = capture(slot)) } returns expectedToDoList
+        every { toDoListServiceMock.deleteToDoList(eq(42L)) } returns expectedToDoList
 
         val toDoList = toDoListController.deleteToDoList(toDoListId)
 
         verify(exactly = 1) { toDoListServiceMock.deleteToDoList(id = toDoListId) }
         toDoList `should be` expectedToDoList
+    }
+
+    @Test
+    fun `Should delegate adding ToDos to ToDoListService`() {
+        val toDoToCreate = ToDo("TestToDo")
+        every { toDoListServiceMock.addToDo(eq(42L), eq(toDoToCreate)) } returns toDoToCreate
+
+        val createdToDo = toDoListController.addToDo(42L, toDoToCreate)
+
+        verify(exactly = 1) { toDoListServiceMock.addToDo(toToDoListId = 42L, toDo = toDoToCreate) }
+        createdToDo `should be` toDoToCreate
     }
 }
 

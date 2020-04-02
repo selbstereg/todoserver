@@ -3,14 +3,13 @@ package todoappbackend.todoserver.todolist
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.ninjasquad.springmockk.MockkBean
 import io.mockk.every
-import io.mockk.slot
-import io.mockk.verify
+import org.hamcrest.Matchers.equalTo
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.http.MediaType
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder.json
 import org.springframework.test.web.servlet.MockMvc
+import org.springframework.test.web.servlet.ResultActionsDsl
 import org.springframework.test.web.servlet.delete
 import org.springframework.test.web.servlet.post
 
@@ -21,15 +20,17 @@ class ToDoListControllerIntegrationTest {
 
     @Autowired
     private lateinit var mockMvc: MockMvc
+
+    @Autowired
     private lateinit var mapper: ObjectMapper
 
     @MockkBean
-    private lateinit var toDoListCrudService: ToDoListCrudService
+    private lateinit var toDoCrudServiceMock: ToDoListCrudService
 
     @Test
     fun `Should return 404 response when EntityNotFoundException is thrown`() {
         val id = 42L
-        every { toDoListCrudService.deleteToDoList(any()) } throws EntityNotFoundException(id)
+        every { toDoCrudServiceMock.deleteToDoList(any()) } throws EntityNotFoundException(id)
 
         mockMvc.delete("/api/to-do-lists/$id").andExpect {
             status { isNotFound }
@@ -38,20 +39,24 @@ class ToDoListControllerIntegrationTest {
     }
 
     @Test
-    fun `Should delegate adding ToDos to ToDoListService`() {
-        val id = 42L
-        every { toDoListCrudService.addToDo(any(), any()) } returns expectedToDoList
-        val toDo = ToDo()
+    fun `Should return the created ToDo when adding a ToDo to a list`() {
+        val toDoToCreate = ToDo("TestToDo")
+        every { toDoCrudServiceMock.addToDo(any(), any()) } returns toDoToCreate
 
-        mockMvc.post("/api/to-do-lists/$id") {
-            content = mapper.writeValueAsString(toDo)
-            contentType = MediaType.APPLICATION_JSON
-        }.andExpect {
-            status { isOk }
-            //TODO: how do we match for json content? Should we add hamkrest as dependency?
-//            jsonPath {("$.id", equals(id))}
-        }
-
-        verify(exactly = 1) { toDoListCrudService.addToDo(toToDoListId= id, toDo = toDo) }
+        val url = "/api/to-do-lists/${42L}"
+        post(url, toDoToCreate)
+                .andExpect {
+                    status { isOk }
+                    jsonPath("$.name", equalTo("TestToDo"))
+                }
     }
+
+    private fun post(url: String, body: ToDo): ResultActionsDsl {
+        return mockMvc.post(url) {
+            content = mapper.writeValueAsString(body)
+            contentType = MediaType.APPLICATION_JSON
+        }
+    }
+
+
 }

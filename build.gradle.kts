@@ -30,6 +30,8 @@ dependencies {
     testImplementation("io.mockk:mockk:1.9.3")
     testImplementation("org.amshove.kluent:kluent:1.59")
     testImplementation("com.ninja-squad:springmockk:2.0.0")
+    testImplementation("org.hamcrest:hamcrest:2.2")
+
 }
 
 tasks.withType<Test> {
