@@ -1,6 +1,7 @@
 package todoappbackend.todoserver.todolist
 
 import org.amshove.kluent.`should contain`
+import org.amshove.kluent.`should not be`
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
@@ -23,6 +24,7 @@ class ToDoListDbIntegrationTest {
         val persistedListWithToDo = manager.persistFlushFind(toDoList)
 
         persistedListWithToDo.todos `should contain` toDoToAdd
+        toDoToAdd.id `should not be`(null)
     }
 
 }
