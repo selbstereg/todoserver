@@ -6,7 +6,7 @@ import javax.persistence.*
 @Entity
 data class ToDoList(val name: String) {
 
-    @OneToMany()
+    @OneToMany(cascade = [CascadeType.PERSIST], orphanRemoval = true)
     private val _todos: MutableList<ToDo> = mutableListOf()
     val todos: List<ToDo>
         get() {
