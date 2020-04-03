@@ -12,12 +12,12 @@ import todoappbackend.todoserver.todolist.todo.ToDo
 class ToDoListController(
         private val toDoListCrudService: ToDoListCrudService
 ) {
-    @GetMapping()
+    @GetMapping
     fun getToDoLists(): Collection<ToDoList> {
         return toDoListCrudService.getToDoLists()
     }
 
-    @PostMapping()
+    @PostMapping
     fun createToDoList(@RequestBody name: String): ToDoList {
         return toDoListCrudService.createToDoList(name)
     }

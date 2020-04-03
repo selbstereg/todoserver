@@ -8,12 +8,12 @@ import org.junit.jupiter.api.Test
 import todoappbackend.todoserver.todolist.todo.ToDo
 
 class ToDoListControllerTest {
-    lateinit var toDoListController: ToDoListController
+    private lateinit var toDoListController: ToDoListController
 
-    lateinit var expectedToDoList: ToDoList
-    lateinit var expectedToDoLists: List<ToDoList>
+    private lateinit var expectedToDoList: ToDoList
+    private lateinit var expectedToDoLists: List<ToDoList>
 
-    var toDoListServiceMock: ToDoListCrudService = mockk()
+    private var toDoListServiceMock: ToDoListCrudService = mockk()
 
 
     @BeforeEach

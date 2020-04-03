@@ -18,8 +18,6 @@ import todoappbackend.todoserver.todolist.todo.ToDo
 @WebMvcTest(controllers = [ToDoListController::class])
 class ToDoListControllerIntegrationTest {
 
-    val expectedToDoList: ToDoList = ToDoList("some name")
-
     @Autowired
     private lateinit var mockMvc: MockMvc
 
