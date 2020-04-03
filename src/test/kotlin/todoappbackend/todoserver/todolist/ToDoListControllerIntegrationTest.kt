@@ -57,7 +57,7 @@ class ToDoListControllerIntegrationTest {
         val toDoId = 43L
         val name = "to be removed"
         val removedToDo = ToDo(name)
-        every { toDoCrudServiceMock.removeToDo(eq(toDoListId), eq(toDoId)) } returns removedToDo
+        every { toDoCrudServiceMock.deleteToDo(eq(toDoListId), eq(toDoId)) } returns removedToDo
 
         val url = "/api/to-do-lists/${toDoListId}/to-dos/${toDoId}"
         mockMvc.delete(url)

@@ -33,8 +33,8 @@ class ToDoListController(
     }
 
     @DeleteMapping("/{toDoListId}/to-dos/{toDoId}")
-    fun removeToDo(@PathVariable toDoListId: Long, @PathVariable toDoId: Long): ToDo {
-        return toDoListCrudService.removeToDo(toDoListId, toDoId)
+    fun deleteToDo(@PathVariable toDoListId: Long, @PathVariable toDoId: Long): ToDo {
+        return toDoListCrudService.deleteToDo(toDoListId, toDoId)
     }
 
     @ExceptionHandler(EntityNotFoundException::class)

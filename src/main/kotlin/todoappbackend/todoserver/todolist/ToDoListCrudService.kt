@@ -36,7 +36,7 @@ class ToDoListCrudService(
         return savedToDo
     }
 
-    fun removeToDo(toDoListId: Long, toDoId: Long): ToDo {
+    fun deleteToDo(toDoListId: Long, toDoId: Long): ToDo {
         val toDoList = getToDoList(toDoListId)
 
         val toDo = toDoList.find(toDoId)

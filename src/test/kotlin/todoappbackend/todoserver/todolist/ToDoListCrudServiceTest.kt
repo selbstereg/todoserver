@@ -94,20 +94,35 @@ class ToDoListCrudServiceTest {
     @Test
     fun `should delegate deletion of to do to repo`() {
         val toDoListId = 42L
-        val idOfToDoToRemove = 43L
+        val idOfToDoToDelete = 43L
         val toDoList = ToDoList("some name")
-        val toDoToRemove = ToDo("some other name", idOfToDoToRemove)
+        val toDoToDelete = ToDo("some other name", idOfToDoToDelete)
         val toDoToKeep = ToDo("another name", 44L)
         toDoList.add(toDoToKeep)
-        toDoList.add(toDoToRemove)
+        toDoList.add(toDoToDelete)
         val toDoListAfterRemovalSlot = slot<ToDoList>()
         every { toDoListRepo.findByIdOrNull(toDoListId) } returns toDoList
         every { toDoListRepo.save(capture(toDoListAfterRemovalSlot)) } returns toDoList
 
-        val removedToDo = toDoListCrudService.removeToDo(toDoListId, idOfToDoToRemove)
+        val deletedToDo = toDoListCrudService.deleteToDo(toDoListId, idOfToDoToDelete)
 
-        toDoListAfterRemovalSlot.captured.todos `should not contain` toDoToRemove
+        toDoListAfterRemovalSlot.captured.todos `should not contain` toDoToDelete
         toDoListAfterRemovalSlot.captured.todos `should contain` toDoToKeep
-        removedToDo `should be equal to` toDoToRemove
+        deletedToDo `should be equal to` toDoToDelete
+    }
+
+    @Test
+    fun `should throw an exception when trying to delete a to do but to do list is not found`() {
+        every { toDoListRepo.findByIdOrNull(any()) } returns null
+
+        invoking { toDoListCrudService.deleteToDo(42L, 43L) } `should throw` EntityNotFoundException::class
+    }
+
+    @Test
+    fun `should throw an exception when trying to delete a to do but which is not found`() {
+        val emptyToDoList = ToDoList("empty to do list")
+        every { toDoListRepo.findByIdOrNull(any()) } returns emptyToDoList
+
+        invoking { toDoListCrudService.deleteToDo(42L, 43L) } `should throw` EntityNotFoundException::class
     }
 }
