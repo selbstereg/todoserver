@@ -85,4 +85,12 @@ class ToDoListCrudServiceTest {
         toDoListSlot.captured.todos `should contain` savedToDo
         addedToDo `should be` savedToDo
     }
+
+    @Test
+    fun `should throw an exception when trying to add to do but to do list is not found`() {
+        every { toDoRepo.save(ofType(ToDo::class)) } returns ToDo("irrelevant to do")
+        every { toDoListRepo.findByIdOrNull(any()) } returns null
+
+        invoking { toDoListCrudService.addToDo(42L, ToDo("some name")) } `should throw` EntityNotFoundException::class
+    }
 }
