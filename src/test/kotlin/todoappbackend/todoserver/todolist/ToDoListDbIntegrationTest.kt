@@ -15,7 +15,7 @@ class ToDoListDbIntegrationTest {
 
     @Test
     fun `Should save a new ToDo when adding to an existing ToDo list`() {
-        // TODO: Vielleicht darf man manager und repo nicht mischen, wegen hibernate transactions, lifecycle, ...
+        // TODO: why is id of toDoToAdd set here like we expect (when we use the repo it is not set!)
         val toDoList = ToDoList("TestList")
         manager.persistAndFlush(toDoList)
         val toDoToAdd = ToDo("TestToDo")
@@ -26,5 +26,7 @@ class ToDoListDbIntegrationTest {
         persistedListWithToDo.todos `should contain` toDoToAdd
         toDoToAdd.id `should not be`(null)
     }
+
+
 
 }
