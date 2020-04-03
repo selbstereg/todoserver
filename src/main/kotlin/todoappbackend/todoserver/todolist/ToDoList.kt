@@ -6,14 +6,18 @@ import javax.persistence.*
 data class ToDoList(val name: String) {
 
     @OneToMany(cascade = [CascadeType.ALL])
-    var todos: MutableList<ToDo> = mutableListOf()
+    private val _todos: MutableList<ToDo> = mutableListOf()
+    val todos: List<ToDo>
+        get() {
+            return _todos
+        }
 
     @Id
     @GeneratedValue
     val id: Long? = null
 
     fun add(toDo: ToDo) {
-        todos.add(toDo)
+        _todos.add(toDo)
     }
 
 }
