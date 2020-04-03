@@ -1,10 +1,11 @@
-package todoappbackend.todoserver.todolist
+package todoappbackend.todoserver
 
 import org.amshove.kluent.`should not be`
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager
+import todoappbackend.todoserver.todolist.ToDoList
 import todoappbackend.todoserver.todolist.todo.ToDo
 
 @DataJpaTest
