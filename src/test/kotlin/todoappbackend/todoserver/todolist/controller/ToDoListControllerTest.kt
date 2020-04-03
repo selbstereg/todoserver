@@ -1,10 +1,12 @@
-package todoappbackend.todoserver.todolist
+package todoappbackend.todoserver.todolist.controller
 
 import io.mockk.*
 import org.amshove.kluent.`should be`
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import todoappbackend.todoserver.todolist.ToDoList
+import todoappbackend.todoserver.todolist.ToDoListCrudService
 
 class ToDoListControllerTest {
     private lateinit var toDoListController: ToDoListController

@@ -1,10 +1,9 @@
-package todoappbackend.todoserver.todolist
+package todoappbackend.todoserver.todolist.controller
 
-import org.springframework.http.HttpStatus
-import org.springframework.http.MediaType
-import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import todoappbackend.todoserver.exceptions.EntityNotFoundException
+import todoappbackend.todoserver.todolist.TODOLIST_PATH
+import todoappbackend.todoserver.todolist.ToDoList
+import todoappbackend.todoserver.todolist.ToDoListCrudService
 
 @RestController
 @RequestMapping(TODOLIST_PATH)
@@ -24,13 +23,5 @@ class ToDoListController(
     @DeleteMapping("/{toDoListId}")
     fun deleteToDoList(@PathVariable toDoListId: Long): ToDoList {
         return toDoListCrudService.deleteToDoList(toDoListId)
-    }
-
-    @ExceptionHandler(EntityNotFoundException::class)
-    fun handleEntityNotFoundException(exception: EntityNotFoundException): ResponseEntity<String> {
-        return ResponseEntity
-                .status(HttpStatus.NOT_FOUND)
-                .contentType(MediaType.APPLICATION_JSON)
-                .body("\"${exception.message}\"")
     }
 }

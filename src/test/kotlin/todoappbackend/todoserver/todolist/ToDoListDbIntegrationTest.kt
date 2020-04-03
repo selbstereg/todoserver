@@ -1,4 +1,4 @@
-package todoappbackend.todoserver
+package todoappbackend.todoserver.todolist
 
 import org.amshove.kluent.`should be null`
 import org.amshove.kluent.`should not be`
@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager
-import todoappbackend.todoserver.todolist.ToDoList
 import todoappbackend.todoserver.todolist.todo.ToDo
 
 @DataJpaTest
@@ -38,13 +37,13 @@ class ToDoListDbIntegrationTest {
         val toDoList = ToDoList("TestList")
         val toDo = ToDo("TestToDo")
         toDoList.add(toDo)
-        val (nameToDoToDelete, idToDoToDelete) = entityManager.persistAndFlush(toDo)
+        val persistedToDo = entityManager.persistAndFlush(toDo)
         entityManager.persistAndFlush(toDoList)
 
         toDoList.remove(toDo)
         entityManager.persistAndFlush(toDoList)
 
-        val toDoNotToBeFound = entityManager.find(ToDo::class.java, idToDoToDelete)
+        val toDoNotToBeFound = entityManager.find(ToDo::class.java, persistedToDo.id)
         toDoNotToBeFound.`should be null`()
     }
 }

@@ -1,4 +1,4 @@
-package todoappbackend.todoserver.todolist
+package todoappbackend.todoserver.todolist.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.ninjasquad.springmockk.MockkBean
@@ -12,6 +12,7 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.ResultActionsDsl
 import org.springframework.test.web.servlet.delete
 import org.springframework.test.web.servlet.post
+import todoappbackend.todoserver.todolist.ToDoListCrudService
 import todoappbackend.todoserver.todolist.todo.ToDo
 
 @WebMvcTest(controllers = [ToDoController::class])

@@ -1,4 +1,4 @@
-package todoappbackend.todoserver.todolist
+package todoappbackend.todoserver.todolist.controller
 
 import io.mockk.every
 import io.mockk.mockk
@@ -6,6 +6,8 @@ import io.mockk.verify
 import org.amshove.kluent.`should be`
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import todoappbackend.todoserver.todolist.ToDoList
+import todoappbackend.todoserver.todolist.ToDoListCrudService
 import todoappbackend.todoserver.todolist.todo.ToDo
 
 

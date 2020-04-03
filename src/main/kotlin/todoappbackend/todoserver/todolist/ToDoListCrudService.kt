@@ -2,7 +2,7 @@ package todoappbackend.todoserver.todolist
 
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Component
-import todoappbackend.todoserver.exceptions.EntityNotFoundException
+import todoappbackend.todoserver.errorhandling.EntityNotFoundException
 import todoappbackend.todoserver.todolist.todo.ToDo
 import todoappbackend.todoserver.todolist.todo.ToDoRepo
 

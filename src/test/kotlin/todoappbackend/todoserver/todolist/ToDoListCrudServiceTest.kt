@@ -7,7 +7,7 @@ import org.amshove.kluent.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.data.repository.findByIdOrNull
-import todoappbackend.todoserver.exceptions.EntityNotFoundException
+import todoappbackend.todoserver.errorhandling.EntityNotFoundException
 import todoappbackend.todoserver.todolist.todo.ToDo
 import todoappbackend.todoserver.todolist.todo.ToDoRepo
 
