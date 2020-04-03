@@ -43,11 +43,27 @@ class ToDoListControllerIntegrationTest {
         val toDoToCreate = ToDo("TestToDo")
         every { toDoCrudServiceMock.addToDo(any(), any()) } returns toDoToCreate
 
-        val url = "/api/to-do-lists/${42L}"
+        val url = "/api/to-do-lists/${42L}/to-dos"
         post(url, toDoToCreate)
                 .andExpect {
                     status { isOk }
                     jsonPath("$.name", equalTo("TestToDo"))
+                }
+    }
+
+    @Test
+    fun `should return deleted to do, when removing to do from a list`() {
+        val toDoListId = 42L
+        val toDoId = 43L
+        val name = "to be removed"
+        val removedToDo = ToDo(name)
+        every { toDoCrudServiceMock.removeToDo(eq(toDoListId), eq(toDoId)) } returns removedToDo
+
+        val url = "/api/to-do-lists/${toDoListId}/to-dos/${toDoId}"
+        mockMvc.delete(url)
+                .andExpect {
+                    status { isOk }
+                    jsonPath("$.name", equalTo(name))
                 }
     }
 

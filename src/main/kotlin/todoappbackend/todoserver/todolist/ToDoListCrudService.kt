@@ -41,4 +41,8 @@ class ToDoListCrudService(
         toDoList ?: throw EntityNotFoundException(id)
         return toDoList
     }
+
+    fun removeToDo(toDoListId: Long, toDoId: Long): ToDo {
+        return ToDo(":)")
+    }
 }
