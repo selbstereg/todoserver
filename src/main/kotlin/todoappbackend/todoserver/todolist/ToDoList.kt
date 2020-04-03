@@ -4,6 +4,7 @@ import javax.persistence.*
 
 @Entity
 data class ToDoList(val name: String) {
+
     @OneToMany(cascade = [CascadeType.ALL])
     var todos: MutableSet<ToDo> = mutableSetOf()
 
