@@ -5,16 +5,13 @@ import org.amshove.kluent.`should be`
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import todoappbackend.todoserver.todolist.todo.ToDo
 
 class ToDoListControllerTest {
     private lateinit var toDoListController: ToDoListController
 
     private lateinit var expectedToDoList: ToDoList
     private lateinit var expectedToDoLists: List<ToDoList>
-
     private var toDoListServiceMock: ToDoListCrudService = mockk()
-
 
     @BeforeEach
     fun setUp() {
@@ -60,15 +57,5 @@ class ToDoListControllerTest {
         toDoList `should be` expectedToDoList
     }
 
-    @Test
-    fun `Should delegate adding ToDos to ToDoListService`() {
-        val toDoToCreate = ToDo("TestToDo")
-        every { toDoListServiceMock.addToDo(eq(42L), eq(toDoToCreate)) } returns toDoToCreate
-
-        val createdToDo = toDoListController.addToDo(42L, toDoToCreate)
-
-        verify(exactly = 1) { toDoListServiceMock.addToDo(toDoListId = 42L, toDo = toDoToCreate) }
-        createdToDo `should be` toDoToCreate
-    }
 }
 

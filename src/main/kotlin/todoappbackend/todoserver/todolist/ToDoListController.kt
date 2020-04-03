@@ -5,10 +5,9 @@ import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import todoappbackend.todoserver.exceptions.EntityNotFoundException
-import todoappbackend.todoserver.todolist.todo.ToDo
 
 @RestController
-@RequestMapping("/api/to-do-lists")
+@RequestMapping(TODOLIST_PATH)
 class ToDoListController(
         private val toDoListCrudService: ToDoListCrudService
 ) {
@@ -25,16 +24,6 @@ class ToDoListController(
     @DeleteMapping("/{toDoListId}")
     fun deleteToDoList(@PathVariable toDoListId: Long): ToDoList {
         return toDoListCrudService.deleteToDoList(toDoListId)
-    }
-
-    @PostMapping("/{toDoListId}/to-dos")
-    fun addToDo(@PathVariable toDoListId: Long, @RequestBody toDo: ToDo): ToDo {
-        return toDoListCrudService.addToDo(toDoListId, toDo)
-    }
-
-    @DeleteMapping("/{toDoListId}/to-dos/{toDoId}")
-    fun deleteToDo(@PathVariable toDoListId: Long, @PathVariable toDoId: Long): ToDo {
-        return toDoListCrudService.deleteToDo(toDoListId, toDoId)
     }
 
     @ExceptionHandler(EntityNotFoundException::class)
