@@ -3,10 +3,7 @@ package todoappbackend.todoserver.todolist
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.slot
-import org.amshove.kluent.`should be`
-import org.amshove.kluent.`should contain`
-import org.amshove.kluent.`should throw`
-import org.amshove.kluent.invoking
+import org.amshove.kluent.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.data.repository.findByIdOrNull
@@ -92,5 +89,25 @@ class ToDoListCrudServiceTest {
         every { toDoListRepo.findByIdOrNull(any()) } returns null
 
         invoking { toDoListCrudService.addToDo(42L, ToDo("some name")) } `should throw` EntityNotFoundException::class
+    }
+    
+    @Test
+    fun `should delegate deletion of to do to repo`() {
+        val toDoListId = 42L
+        val idOfToDoToRemove = 43L
+        val toDoList = ToDoList("some name")
+        val toDoToRemove = ToDo("some other name", idOfToDoToRemove)
+        val toDoToKeep = ToDo("another name", 44L)
+        toDoList.add(toDoToKeep)
+        toDoList.add(toDoToRemove)
+        val toDoListAfterRemovalSlot = slot<ToDoList>()
+        every { toDoListRepo.findByIdOrNull(toDoListId) } returns toDoList
+        every { toDoListRepo.save(capture(toDoListAfterRemovalSlot)) } returns toDoList
+
+        val removedToDo = toDoListCrudService.removeToDo(toDoListId, idOfToDoToRemove)
+
+        toDoListAfterRemovalSlot.captured.todos `should not contain` toDoToRemove
+        toDoListAfterRemovalSlot.captured.todos `should contain` toDoToKeep
+        removedToDo `should be equal to` toDoToRemove
     }
 }

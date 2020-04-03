@@ -6,7 +6,7 @@ import javax.persistence.*
 @Entity
 data class ToDoList(val name: String) {
 
-    @OneToMany
+    @OneToMany()
     private val _todos: MutableList<ToDo> = mutableListOf()
     val todos: List<ToDo>
         get() {
@@ -19,6 +19,14 @@ data class ToDoList(val name: String) {
 
     fun add(toDo: ToDo) {
         _todos.add(toDo)
+    }
+
+    fun find(toDoId: Long): ToDo? {
+        return _todos.find { it.id == toDoId }
+    }
+
+    fun remove(toDo: ToDo): Boolean {
+        return _todos.remove(toDo)
     }
 
 }
