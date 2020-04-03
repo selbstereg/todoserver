@@ -10,22 +10,26 @@ import org.amshove.kluent.invoking
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.data.repository.findByIdOrNull
+import todoappbackend.todoserver.exceptions.EntityNotFoundException
+import todoappbackend.todoserver.todolist.todo.ToDo
+import todoappbackend.todoserver.todolist.todo.ToDoRepo
 
 class ToDoListCrudServiceTest {
 
-    private val repo: ToDoListRepo = mockk()
+    private val toDoListRepo: ToDoListRepo = mockk()
+    private val toDoRepo: ToDoRepo = mockk()
     private lateinit var toDoListCrudService: ToDoListCrudService
     private val expectedToDoList = ToDoList(name = "TestString")
 
     @BeforeEach
     fun setUp() {
-        toDoListCrudService = ToDoListCrudService(repo)
+        toDoListCrudService = ToDoListCrudService(toDoListRepo, toDoRepo)
     }
 
     @Test
     fun `should get to do list from repo`() {
         val expectedToDoLists = listOf(expectedToDoList)
-        every { repo.findAll() } returns expectedToDoLists
+        every { toDoListRepo.findAll() } returns expectedToDoLists
 
         val toDoLists = toDoListCrudService.getToDoLists()
 
@@ -35,7 +39,7 @@ class ToDoListCrudServiceTest {
     @Test
     fun `should create to do list with name`() {
         val slot = slot<ToDoList>()
-        every { repo.save(capture(slot)) } returns expectedToDoList
+        every { toDoListRepo.save(capture(slot)) } returns expectedToDoList
 
         val createdToDoList = toDoListCrudService.createToDoList("TestString")
 
@@ -48,8 +52,8 @@ class ToDoListCrudServiceTest {
         val idSlot = slot<Long>()
         val toDoListSlot = slot<ToDoList>()
         val toDoListId = 42L
-        every { repo.findByIdOrNull(capture(idSlot)) } returns expectedToDoList
-        every { repo.delete(capture(toDoListSlot)) } returns Unit
+        every { toDoListRepo.findByIdOrNull(capture(idSlot)) } returns expectedToDoList
+        every { toDoListRepo.delete(capture(toDoListSlot)) } returns Unit
 
         val deletedToDoList = toDoListCrudService.deleteToDoList(toDoListId)
 
@@ -60,21 +64,25 @@ class ToDoListCrudServiceTest {
 
     @Test
     fun `should trow an exception when to do list with given id is not found`() {
-        every { repo.findByIdOrNull(any()) } returns null
+        every { toDoListRepo.findByIdOrNull(any()) } returns null
 
         invoking { toDoListCrudService.deleteToDoList(42L) } `should throw` EntityNotFoundException::class
     }
 
     @Test
     fun `should add new ToDo to a ToDoList`() {
-        every{repo.findByIdOrNull(42L)} returns ToDoList("AddToThisList")
-        val slot = slot<ToDoList>()
-        every{repo.save(capture(slot))} returns ToDoList("irrelevant")
-
         val toDoToAdd = ToDo("TestToDo")
+        val savedToDo = ToDo("TestToDo after saving")
+        val toDoSlot = slot<ToDo>()
+        val toDoListSlot = slot<ToDoList>()
+        every { toDoRepo.save(capture(toDoSlot)) } returns savedToDo
+        every { toDoListRepo.findByIdOrNull(42L) } returns ToDoList("AddToThisList")
+        every { toDoListRepo.save(capture(toDoListSlot)) } returns ToDoList("irrelevant")
+
         val addedToDo = toDoListCrudService.addToDo(42L, toDoToAdd)
 
-        slot.captured.todos `should contain` toDoToAdd
-        addedToDo `should be` toDoToAdd
+        toDoSlot.captured `should be` toDoToAdd
+        toDoListSlot.captured.todos `should contain` savedToDo
+        addedToDo `should be` savedToDo
     }
 }

@@ -4,6 +4,7 @@ import org.amshove.kluent.`should be equal to`
 import org.amshove.kluent.`should contain`
 import org.amshove.kluent.`should not contain`
 import org.junit.jupiter.api.Test
+import todoappbackend.todoserver.todolist.todo.ToDo
 
 
 class ToDoListIntegrationTest {

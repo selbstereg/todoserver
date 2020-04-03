@@ -5,6 +5,7 @@ import org.amshove.kluent.`should be`
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import todoappbackend.todoserver.todolist.todo.ToDo
 
 class ToDoListControllerTest {
     lateinit var toDoListController: ToDoListController

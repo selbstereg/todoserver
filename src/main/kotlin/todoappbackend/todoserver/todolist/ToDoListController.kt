@@ -4,6 +4,8 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import todoappbackend.todoserver.exceptions.EntityNotFoundException
+import todoappbackend.todoserver.todolist.todo.ToDo
 
 @RestController
 @RequestMapping("/api/to-do-lists")

@@ -12,6 +12,8 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.ResultActionsDsl
 import org.springframework.test.web.servlet.delete
 import org.springframework.test.web.servlet.post
+import todoappbackend.todoserver.exceptions.EntityNotFoundException
+import todoappbackend.todoserver.todolist.todo.ToDo
 
 @WebMvcTest(controllers = [ToDoListController::class])
 class ToDoListControllerIntegrationTest {

@@ -1,11 +1,12 @@
 package todoappbackend.todoserver.todolist
 
+import todoappbackend.todoserver.todolist.todo.ToDo
 import javax.persistence.*
 
 @Entity
 data class ToDoList(val name: String) {
 
-    @OneToMany(cascade = [CascadeType.ALL])
+    @OneToMany()
     private val _todos: MutableList<ToDo> = mutableListOf()
     val todos: List<ToDo>
         get() {

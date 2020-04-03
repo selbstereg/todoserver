@@ -1,4 +1,4 @@
-package todoappbackend.todoserver.todolist
+package todoappbackend.todoserver.todolist.todo
 
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
