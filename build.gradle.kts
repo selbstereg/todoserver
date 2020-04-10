@@ -1,5 +1,9 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+// INTERESTING: The kotlin jpa plugin makes the compiler add a "synthetic" no arg constructor
+// to classes annotated with @Entity (among others), which is required by JPA
+// https://kotlinlang.org/docs/reference/compiler-plugins.html#jpa-support
+
 plugins {
     id("org.springframework.boot") version "2.2.6.RELEASE"
     id("io.spring.dependency-management") version "1.0.9.RELEASE"

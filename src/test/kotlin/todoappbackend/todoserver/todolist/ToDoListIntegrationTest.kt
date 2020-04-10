@@ -8,6 +8,15 @@ import todoappbackend.todoserver.todolist.todo.ToDo
 
 
 class ToDoListIntegrationTest {
+
+    // INTERESTING: If you put objects into a set, you should not mutate them
+    // afterwards. If the mutation affects the equals (or hash code?) method,
+    // they can no longer be found.
+    // This may yield funny behavior, when using entities, which get their
+    // id assigned, when first saved to the data base.
+    // This can be tackled, by either not putting the id into the primary constructor,
+    // or by not using a Set.
+
     @Test
     fun `should allow finding ToDos while ToDos are mutated`() {
         val toDoList = ToDoList("Test")
@@ -16,6 +25,11 @@ class ToDoListIntegrationTest {
         toDo.id = 123L
         toDoList.todos `should contain` toDo
     }
+
+    // INTERESTING: Although there isn't really a requirement for that, we did not
+    // want the app to treat to dos with the same name as the same entity, as that
+    // did not seem intuitive. As the id may be null in any case, this entails,
+    // that the to dos are not stored in a Set.
 
     @Test
     fun `should allow adding distinct ToDos with the same name`() {
@@ -28,6 +42,11 @@ class ToDoListIntegrationTest {
 
         toDoList.todos.size `should be equal to` 2
     }
+
+    // INTERESTING: As we allow adding distinct to dos with the same name, it is only consistent,
+    // that the id should be considered, when deciding, if a to do is already
+    // contained in the to do list. To this end, the id is part of the primary
+    // constructor of the to do.
 
     @Test
     fun `should consider ids when deciding if ToDo is contained in ToDoList`() {

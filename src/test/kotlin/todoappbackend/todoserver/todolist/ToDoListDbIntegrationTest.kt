@@ -14,9 +14,8 @@ class ToDoListDbIntegrationTest {
     @Autowired
     private lateinit var entityManager: TestEntityManager
 
-    // Tests that only save entities are there, to ensure, that
-    // the @Entity annotation is present and generation of the
-    // ids works.
+    // INTERESTING: The tests that do nothing but save an entity, are there to ensure,
+    // that the @Entity annotation is present and generation of the ids works.
     // If the schema were not auto generated, they might also
     // check for compliance of the Entity classes.
 
