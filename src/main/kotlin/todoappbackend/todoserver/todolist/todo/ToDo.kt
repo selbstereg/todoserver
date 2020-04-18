@@ -12,7 +12,11 @@ import javax.persistence.Id
 @Entity
 data class ToDo(
         val name: String = "",
+        val priority: Int,
         @Id
         @GeneratedValue
         var id: Long? = null
-)
+) : Comparable<ToDo> {
+        override fun compareTo(other: ToDo): Int =
+                priority.compareTo(other.priority)
+}

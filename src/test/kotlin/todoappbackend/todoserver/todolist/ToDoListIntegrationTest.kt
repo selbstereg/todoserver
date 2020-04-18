@@ -4,7 +4,7 @@ import org.amshove.kluent.`should be equal to`
 import org.amshove.kluent.`should contain`
 import org.amshove.kluent.`should not contain`
 import org.junit.jupiter.api.Test
-import todoappbackend.todoserver.todolist.todo.ToDo
+import todoappbackend.todoserver.testutils.ToDoBuilder.Companion.createToDo
 
 
 class ToDoListIntegrationTest {
@@ -20,7 +20,7 @@ class ToDoListIntegrationTest {
     @Test
     fun `should allow finding ToDos while ToDos are mutated`() {
         val toDoList = ToDoList("Test")
-        val toDo = ToDo("aToDo")
+        val toDo = createToDo("aToDo")
         toDoList.add(toDo)
         toDo.id = 123L
         toDoList.toDos `should contain` toDo
@@ -34,8 +34,8 @@ class ToDoListIntegrationTest {
     @Test
     fun `should allow adding distinct ToDos with the same name`() {
         val toDoList = ToDoList("Test")
-        val toDo = ToDo("aToDo")
-        val toDoWithSameName = ToDo("aToDo")
+        val toDo = createToDo("aToDo")
+        val toDoWithSameName = createToDo("aToDo")
 
         toDoList.add(toDo)
         toDoList.add(toDoWithSameName)
@@ -51,9 +51,9 @@ class ToDoListIntegrationTest {
     @Test
     fun `should consider ids when deciding if ToDo is contained in ToDoList`() {
         val toDoList = ToDoList("Test")
-        val toDo = ToDo("aToDo")
+        val toDo = createToDo("aToDo")
         toDo.id = 1L
-        val toDoWithSameName = ToDo("aToDo")
+        val toDoWithSameName = createToDo("aToDo")
         toDoWithSameName.id = 2L
 
         toDoList.add(toDo)

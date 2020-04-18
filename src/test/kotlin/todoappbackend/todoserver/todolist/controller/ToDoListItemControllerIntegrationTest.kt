@@ -14,8 +14,8 @@ import org.springframework.test.web.servlet.delete
 import org.springframework.test.web.servlet.get
 import org.springframework.test.web.servlet.post
 import todoappbackend.todoserver.todolist.ToDoListCrudService
-import todoappbackend.todoserver.todolist.todo.ToDo
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
+import todoappbackend.todoserver.testutils.ToDoBuilder.Companion.createToDo
 import todoappbackend.todoserver.todolist.TO_DOS_ENDPOINT
 import todoappbackend.todoserver.todolist.TO_DO_LIST_PATH
 
@@ -36,7 +36,7 @@ class ToDoListItemControllerIntegrationTest {
         val toDoName1 = "to do 1"
         val toDoName2 = "to do 2"
         val toDoListId = 42L
-        val expectedToDos = listOf(ToDo(toDoName1), ToDo(toDoName2))
+        val expectedToDos = listOf(createToDo(toDoName1), createToDo(toDoName2))
         every { toDoListServiceMock.getToDos(eq(toDoListId)) } returns expectedToDos
 
         val url = "$TO_DO_LIST_PATH/$toDoListId/$TO_DOS_ENDPOINT"
@@ -52,8 +52,8 @@ class ToDoListItemControllerIntegrationTest {
 
     @Test
     fun `should return the created to do when adding a to do to a list`() {
-        val toDoToCreate = ToDo("some name")
-        val createdToDo = ToDo("some other name")
+        val toDoToCreate = createToDo("some name")
+        val createdToDo = createToDo("some other name")
         val toDoListId = 42L
         every { toDoListServiceMock.addToDo(eq(toDoListId), eq(toDoToCreate)) } returns createdToDo
 
@@ -73,7 +73,7 @@ class ToDoListItemControllerIntegrationTest {
         val toDoListId = 42L
         val toDoId = 43L
         val name = "to be removed"
-        val removedToDo = ToDo(name)
+        val removedToDo = createToDo(name)
         every { toDoListServiceMock.deleteToDo(eq(toDoListId), eq(toDoId)) } returns removedToDo
 
         val url = "$TO_DO_LIST_PATH/$toDoListId/$TO_DOS_ENDPOINT/$toDoId"

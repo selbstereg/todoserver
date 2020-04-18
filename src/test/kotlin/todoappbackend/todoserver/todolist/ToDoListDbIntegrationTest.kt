@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager
+import todoappbackend.todoserver.testutils.ToDoBuilder.Companion.createToDo
 import todoappbackend.todoserver.todolist.todo.ToDo
 
 @DataJpaTest
@@ -21,7 +22,7 @@ class ToDoListDbIntegrationTest {
 
     @Test
     fun `should save a to do to the database and set its id`() {
-        val savedToDo = entityManager.persistFlushFind(ToDo("some name"))
+        val savedToDo = entityManager.persistFlushFind(createToDo("some name"))
         savedToDo.id `should not be` null
     }
 
@@ -34,7 +35,7 @@ class ToDoListDbIntegrationTest {
     @Test
     fun `should remove orphaned to dos when removing todo from ToDoList`() {
         val toDoList = ToDoList("TestList")
-        val toDo = ToDo("TestToDo")
+        val toDo = createToDo("TestToDo")
         toDoList.add(toDo)
         val persistedToDo = entityManager.persistAndFlush(toDo)
         entityManager.persistAndFlush(toDoList)
