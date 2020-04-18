@@ -17,7 +17,7 @@ class ToDoListCrudServiceTest {
     private val toDoListRepo: ToDoListRepo = mockk()
     private val toDoRepo: ToDoRepo = mockk()
     private lateinit var toDoListCrudService: ToDoListCrudService
-    private val expectedToDoList = ToDoList(name = "TestString")
+    private val expectedToDoList = ToDoList(name = "some name")
 
     @BeforeEach
     fun setUp() {
@@ -36,12 +36,13 @@ class ToDoListCrudServiceTest {
 
     @Test
     fun `should create to do list with name`() {
+        val name = "to do list name"
         val slot = slot<ToDoList>()
         every { toDoListRepo.save(capture(slot)) } returns expectedToDoList
 
-        val createdToDoList = toDoListCrudService.createToDoList("TestString")
+        val createdToDoList = toDoListCrudService.createToDoList(name)
 
-        slot.captured.name `should be` "TestString"
+        slot.captured.name `should be` name
         createdToDoList `should be` expectedToDoList
     }
 
@@ -71,12 +72,12 @@ class ToDoListCrudServiceTest {
 
     @Test
     fun `should add new ToDo to a ToDoList`() {
-        val toDoToAdd = createToDo("TestToDo")
-        val savedToDo = createToDo("TestToDo after saving")
+        val toDoToAdd = createToDo("test to do")
+        val savedToDo = createToDo("test to do after saving")
         val toDoSlot = slot<ToDo>()
         val toDoListSlot = slot<ToDoList>()
         every { toDoRepo.save(capture(toDoSlot)) } returns savedToDo
-        every { toDoListRepo.findByIdOrNull(42L) } returns ToDoList("AddToThisList")
+        every { toDoListRepo.findByIdOrNull(42L) } returns ToDoList("to do will be added to this list")
         every { toDoListRepo.save(capture(toDoListSlot)) } returns ToDoList("irrelevant")
 
         val addedToDo = toDoListCrudService.addToDo(42L, toDoToAdd)
