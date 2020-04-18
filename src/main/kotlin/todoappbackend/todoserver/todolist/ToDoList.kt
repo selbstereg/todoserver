@@ -18,7 +18,7 @@ data class ToDoList(val name: String) {
     private val _toDos: MutableList<ToDo> = mutableListOf()
     val toDos: List<ToDo>
         get() {
-            return _toDos
+            return _toDos.sorted()
         }
 
     @Id

@@ -1,10 +1,12 @@
 package todoappbackend.todoserver.todolist
 
 import org.amshove.kluent.`should be equal to`
+import org.amshove.kluent.`should be sorted according to`
 import org.amshove.kluent.`should contain`
 import org.amshove.kluent.`should not contain`
 import org.junit.jupiter.api.Test
-import todoappbackend.todoserver.testutils.ToDoBuilder.Companion.createToDo
+import todoappbackend.todoserver.todolist.todo.ToDo
+import todoappbackend.todoserver.utils.ToDoBuilder.Companion.createToDo
 
 
 class ToDoListIntegrationTest {
@@ -18,7 +20,7 @@ class ToDoListIntegrationTest {
     // or by not using a Set.
 
     @Test
-    fun `should allow finding ToDos while ToDos are mutated`() {
+    fun `should allow finding ToDos while to dos are mutated`() {
         val toDoList = ToDoList("Test")
         val toDo = createToDo("aToDo")
         toDoList.add(toDo)
@@ -32,7 +34,7 @@ class ToDoListIntegrationTest {
     // that the to dos are not stored in a Set.
 
     @Test
-    fun `should allow adding distinct ToDos with the same name`() {
+    fun `should allow adding distinct to dos with the same name`() {
         val toDoList = ToDoList("Test")
         val toDo = createToDo("aToDo")
         val toDoWithSameName = createToDo("aToDo")
@@ -49,7 +51,7 @@ class ToDoListIntegrationTest {
     // constructor of the to do.
 
     @Test
-    fun `should consider ids when deciding if ToDo is contained in ToDoList`() {
+    fun `should consider ids when deciding if to do is contained in to do list`() {
         val toDoList = ToDoList("Test")
         val toDo = createToDo("aToDo")
         toDo.id = 1L
@@ -59,5 +61,19 @@ class ToDoListIntegrationTest {
         toDoList.add(toDo)
 
         toDoList.toDos `should not contain` toDoWithSameName
+    }
+
+    @Test
+    fun `should provide to dos sorted by priority`() {
+        val toDoList = ToDoList("Test")
+
+        toDoList.add(createToDo(priority = 3))
+        toDoList.add(createToDo(priority = 1))
+        toDoList.add(createToDo(priority = -2))
+        toDoList.add(createToDo(priority = 7))
+        toDoList.add(createToDo(priority = 0))
+
+        val priorityComparator = compareBy<ToDo> { it.priority }
+        toDoList.toDos `should be sorted according to` priorityComparator
     }
 }

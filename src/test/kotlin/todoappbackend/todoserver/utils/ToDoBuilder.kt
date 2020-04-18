@@ -1,4 +1,4 @@
-package todoappbackend.todoserver.testutils
+package todoappbackend.todoserver.utils
 
 import todoappbackend.todoserver.todolist.todo.ToDo
 

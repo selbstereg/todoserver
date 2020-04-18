@@ -4,7 +4,7 @@ import org.amshove.kluent.`should be greater than`
 import org.amshove.kluent.`should be less than`
 import org.amshove.kluent.`should be`
 import org.junit.jupiter.api.Test
-import todoappbackend.todoserver.testutils.ToDoBuilder.Companion.createToDo
+import todoappbackend.todoserver.utils.ToDoBuilder.Companion.createToDo
 
 class ToDoTest {
     @Test

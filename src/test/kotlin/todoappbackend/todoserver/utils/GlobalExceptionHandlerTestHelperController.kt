@@ -1,4 +1,4 @@
-package todoappbackend.todoserver.testutils
+package todoappbackend.todoserver.utils
 
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping

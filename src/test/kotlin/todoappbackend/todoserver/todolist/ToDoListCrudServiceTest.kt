@@ -8,8 +8,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.data.repository.findByIdOrNull
 import todoappbackend.todoserver.errorhandling.EntityNotFoundException
-import todoappbackend.todoserver.testutils.ToDoBuilder
-import todoappbackend.todoserver.testutils.ToDoBuilder.Companion.createToDo
+import todoappbackend.todoserver.utils.ToDoBuilder.Companion.createToDo
 import todoappbackend.todoserver.todolist.todo.ToDo
 import todoappbackend.todoserver.todolist.todo.ToDoRepo
 
