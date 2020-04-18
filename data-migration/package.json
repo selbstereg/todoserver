@@ -1,0 +1,26 @@
+{
+  "name": "data-migration",
+  "version": "1.0.0",
+  "description": "Tool to upload to do list data to my to do server",
+  "main": "upload.js",
+  "scripts": {
+    "test": "node upload.js check"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/selbstereg/todoserver.git"
+  },
+  "keywords": [
+    "asdf",
+    "jklö"
+  ],
+  "author": "Paul Bauknecht",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/selbstereg/todoserver/issues"
+  },
+  "homepage": "https://github.com/selbstereg/todoserver#readme",
+  "dependencies": {
+    "axios": "^0.19.2"
+  }
+}

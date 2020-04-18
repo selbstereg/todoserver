@@ -33,3 +33,6 @@ out/
 
 ### Vim ###
 *.swp
+
+### npm ###
+node_modules
