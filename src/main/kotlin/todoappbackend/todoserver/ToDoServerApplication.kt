@@ -12,6 +12,8 @@ import org.springframework.boot.runApplication
 @SpringBootApplication
 class ToDoServerApplication
 
+// TODO Paul Bauknecht 18 Apr 2020: Dig into startup exceptions regarding altering of schema
+
 fun main(args: Array<String>) {
 	runApplication<ToDoServerApplication>(*args)
 }
