@@ -1,9 +1,10 @@
 package todoappbackend.todoserver.todolist
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import todoappbackend.todoserver.todolist.todo.ToDo
 import javax.persistence.*
 
-// INTERESTING: Uncle Bob tells us no to mix command and query. Therefore
+// INTERESTING: Uncle Bob tells us not to mix command and query. Therefore
 // find() and remove() are separate methods, although they are currently
 // only used together to remove a to do by id.
 // In Kotlin, the type of a property must be the same as the return type
@@ -15,8 +16,8 @@ import javax.persistence.*
 data class ToDoList(val name: String) {
 
     @OneToMany(cascade = [CascadeType.PERSIST], orphanRemoval = true)
-    private val _todos: MutableList<ToDo> = mutableListOf()
-    val todos: List<ToDo>
+    private val _todos: MutableList<ToDo> = mutableListOf() // TODO Paul Bauknecht 18 Apr 2020: Rename to _toDos
+    val todos: List<ToDo> // TODO Paul Bauknecht 18 Apr 2020: Rename to toDos
         get() {
             return _todos
         }
