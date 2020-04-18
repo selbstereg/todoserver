@@ -3,7 +3,7 @@ package todoappbackend.todoserver.todolist.controller
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.ninjasquad.springmockk.MockkBean
 import io.mockk.every
-import org.hamcrest.Matchers
+import org.hamcrest.Matchers.equalTo
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
@@ -39,7 +39,7 @@ class ToDoControllerIntegrationTest {
         mockMvc.delete(url)
                 .andExpect {
                     status { isOk }
-                    jsonPath("$.name", Matchers.equalTo(name))
+                    jsonPath("$.name", equalTo(name))
                 }
     }
 
@@ -52,7 +52,7 @@ class ToDoControllerIntegrationTest {
         post(url, toDoToCreate)
                 .andExpect {
                     status { isOk }
-                    jsonPath("$.name", Matchers.equalTo("TestToDo"))
+                    jsonPath("$.name", equalTo("TestToDo"))
                 }
     }
 

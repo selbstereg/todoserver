@@ -10,7 +10,7 @@ import todoappbackend.todoserver.todolist.ToDoList
 import todoappbackend.todoserver.todolist.ToDoListCrudService
 import todoappbackend.todoserver.todolist.todo.ToDo
 
-
+// TODO Paul Bauknecht 18 Apr 2020: Turn this into a MockMvc test
 class ToDoControllerTest {
 
     private lateinit var toDoListController: ToDoController
