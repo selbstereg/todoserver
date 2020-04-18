@@ -1,7 +1,8 @@
-package todoappbackend.todoserver.errorhandling
+package todoappbackend.todoserver.testutils
 
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
+import todoappbackend.todoserver.errorhandling.EntityNotFoundException
 
 @Controller
 class GlobalExceptionHandlerTestHelperController {
