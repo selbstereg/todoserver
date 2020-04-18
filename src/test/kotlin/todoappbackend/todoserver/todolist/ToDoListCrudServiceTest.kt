@@ -156,6 +156,6 @@ class ToDoListCrudServiceTest {
 
         val toDos = toDoListCrudService.getToDos(toDoListId)
 
-        toDos `should be` expectedToDoList.toDos
+        toDos `should contain all` expectedToDoList.toDos
     }
 }
