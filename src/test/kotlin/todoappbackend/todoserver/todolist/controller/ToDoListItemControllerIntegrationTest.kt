@@ -21,10 +21,28 @@ class ToDoListItemControllerIntegrationTest {
     private lateinit var mockMvc: MockMvc
 
     @MockkBean
-    private lateinit var toDoCrudServiceMock: ToDoListCrudService
+    private lateinit var toDoListServiceMock: ToDoListCrudService
 
     @Autowired
-    private lateinit var mapper: ObjectMapper
+    private lateinit var objectMapper: ObjectMapper
+
+    @Test
+    fun `should return the created to do when adding a to do to a list`() {
+        val toDoToCreate = ToDo("some name")
+        val createdToDo = ToDo("some other name")
+        val toDoListId = 42L
+        every { toDoListServiceMock.addToDo(eq(toDoListId), eq(toDoToCreate)) } returns createdToDo
+
+        val url = "/api/to-do-lists/$toDoListId/to-dos"
+        mockMvc.post(url) {
+                    content = objectMapper.writeValueAsString(toDoToCreate)
+                    contentType = MediaType.APPLICATION_JSON
+                }
+                .andExpect {
+                    status { isOk }
+                    jsonPath("$.name", equalTo(createdToDo.name))
+                }
+    }
 
     @Test
     fun `should return deleted to do, when removing to do from a list`() {
@@ -32,29 +50,13 @@ class ToDoListItemControllerIntegrationTest {
         val toDoId = 43L
         val name = "to be removed"
         val removedToDo = ToDo(name)
-        every { toDoCrudServiceMock.deleteToDo(eq(toDoListId), eq(toDoId)) } returns removedToDo
+        every { toDoListServiceMock.deleteToDo(eq(toDoListId), eq(toDoId)) } returns removedToDo
 
         val url = "/api/to-do-lists/${toDoListId}/to-dos/${toDoId}"
         mockMvc.delete(url)
                 .andExpect {
                     status { isOk }
                     jsonPath("$.name", equalTo(name))
-                }
-    }
-
-    @Test
-    fun `should return the created to do when adding a to do to a list`() {
-        val toDoToCreate = ToDo("TestToDo")
-        every { toDoCrudServiceMock.addToDo(any(), any()) } returns toDoToCreate
-
-        val url = "/api/to-do-lists/${42L}/to-dos"
-        mockMvc.post(url) {
-                    content = mapper.writeValueAsString(toDoToCreate)
-                    contentType = MediaType.APPLICATION_JSON
-                }
-                .andExpect {
-                    status { isOk }
-                    jsonPath("$.name", equalTo("TestToDo"))
                 }
     }
 
