@@ -44,7 +44,7 @@ class ToDoListItemControllerIntegrationTest {
     }
 
     @Test
-    fun `should return the created ToDo when adding a ToDo to a list`() {
+    fun `should return the created to do when adding a to do to a list`() {
         val toDoToCreate = ToDo("TestToDo")
         every { toDoCrudServiceMock.addToDo(any(), any()) } returns toDoToCreate
 

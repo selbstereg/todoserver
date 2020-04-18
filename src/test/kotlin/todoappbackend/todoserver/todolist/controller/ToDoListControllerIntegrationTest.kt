@@ -46,7 +46,7 @@ class ToDoListControllerIntegrationTest {
     }
 
     @Test
-    fun `should get to do lists from service`() {
+    fun `should return to do lists provided by service`() {
         every { toDoListServiceMock.getToDoLists() } returns expectedToDoLists
 
         val url = "/api/to-do-lists"
@@ -60,7 +60,7 @@ class ToDoListControllerIntegrationTest {
     }
 
     @Test
-    fun `should delegate creation of to do lists to service`() {
+    fun `should return created to do list`() {
         val toDoListName = "some name"
         every { toDoListServiceMock.createToDoList(eq(toDoListName)) } returns ToDoList(toDoListName)
 
@@ -75,7 +75,7 @@ class ToDoListControllerIntegrationTest {
     }
 
     @Test
-    fun `should delegate deletion of to do list to service`() {
+    fun `should return deleted to do list`() {
         val toDoListId = 42L
         every { toDoListServiceMock.deleteToDoList(eq(42L)) } returns expectedToDoList
 
