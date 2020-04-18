@@ -23,7 +23,7 @@ class ToDoListIntegrationTest {
         val toDo = ToDo("aToDo")
         toDoList.add(toDo)
         toDo.id = 123L
-        toDoList.todos `should contain` toDo
+        toDoList.toDos `should contain` toDo
     }
 
     // INTERESTING: Although there isn't really a requirement for that, we did not
@@ -40,7 +40,7 @@ class ToDoListIntegrationTest {
         toDoList.add(toDo)
         toDoList.add(toDoWithSameName)
 
-        toDoList.todos.size `should be equal to` 2
+        toDoList.toDos.size `should be equal to` 2
     }
 
     // INTERESTING: As we allow adding distinct to dos with the same name, it is only consistent,
@@ -58,6 +58,6 @@ class ToDoListIntegrationTest {
 
         toDoList.add(toDo)
 
-        toDoList.todos `should not contain` toDoWithSameName
+        toDoList.toDos `should not contain` toDoWithSameName
     }
 }

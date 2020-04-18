@@ -79,7 +79,7 @@ class ToDoListCrudServiceTest {
         val addedToDo = toDoListCrudService.addToDo(42L, toDoToAdd)
 
         toDoSlot.captured `should be` toDoToAdd
-        toDoListSlot.captured.todos `should contain` savedToDo
+        toDoListSlot.captured.toDos `should contain` savedToDo
         addedToDo `should be` savedToDo
     }
 
@@ -106,8 +106,8 @@ class ToDoListCrudServiceTest {
 
         val deletedToDo = toDoListCrudService.deleteToDo(toDoListId, idOfToDoToDelete)
 
-        toDoListAfterRemovalSlot.captured.todos `should not contain` toDoToDelete
-        toDoListAfterRemovalSlot.captured.todos `should contain` toDoToKeep
+        toDoListAfterRemovalSlot.captured.toDos `should not contain` toDoToDelete
+        toDoListAfterRemovalSlot.captured.toDos `should contain` toDoToKeep
         deletedToDo `should be equal to` toDoToDelete
     }
 

@@ -1,12 +1,12 @@
 package todoappbackend.todoserver.todolist.controller
 
 import org.springframework.web.bind.annotation.*
-import todoappbackend.todoserver.todolist.TODOLIST_PATH
+import todoappbackend.todoserver.todolist.TODO_LIST_PATH
 import todoappbackend.todoserver.todolist.ToDoList
 import todoappbackend.todoserver.todolist.ToDoListCrudService
 
 @RestController
-@RequestMapping(TODOLIST_PATH)
+@RequestMapping(TODO_LIST_PATH)
 class ToDoListController(
         private val toDoListCrudService: ToDoListCrudService
 ) {

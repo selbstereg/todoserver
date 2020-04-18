@@ -32,7 +32,7 @@ class ToDoListDbIntegrationTest {
     }
 
     @Test
-    fun `should remove orphaned todos when removing todo from ToDoList`() {
+    fun `should remove orphaned to dos when removing todo from ToDoList`() {
         val toDoList = ToDoList("TestList")
         val toDo = ToDo("TestToDo")
         toDoList.add(toDo)
