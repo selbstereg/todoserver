@@ -10,8 +10,8 @@ import org.springframework.boot.runApplication
 // downloaded automatically.
 
 @SpringBootApplication
-class TodoserverApplication
+class ToDoServerApplication
 
 fun main(args: Array<String>) {
-	runApplication<TodoserverApplication>(*args)
+	runApplication<ToDoServerApplication>(*args)
 }
