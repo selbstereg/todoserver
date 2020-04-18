@@ -52,4 +52,8 @@ class ToDoListCrudService(
         toDoList ?: throw EntityNotFoundException(id)
         return toDoList
     }
+
+    fun getToDos(toDoListId: Long): List<ToDo> {
+        return listOf()
+    }
 }

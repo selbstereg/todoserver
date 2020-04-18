@@ -3,6 +3,7 @@ package todoappbackend.todoserver.todolist.controller
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.ninjasquad.springmockk.MockkBean
 import io.mockk.every
+import org.hamcrest.Matchers
 import org.hamcrest.Matchers.equalTo
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -10,9 +11,13 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.delete
+import org.springframework.test.web.servlet.get
 import org.springframework.test.web.servlet.post
 import todoappbackend.todoserver.todolist.ToDoListCrudService
 import todoappbackend.todoserver.todolist.todo.ToDo
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
+import todoappbackend.todoserver.todolist.TO_DOS_ENDPOINT
+import todoappbackend.todoserver.todolist.TO_DO_LIST_PATH
 
 @WebMvcTest(controllers = [ToDoListItemController::class])
 class ToDoListItemControllerIntegrationTest {
@@ -27,13 +32,32 @@ class ToDoListItemControllerIntegrationTest {
     private lateinit var objectMapper: ObjectMapper
 
     @Test
+    fun `should return to dos provided by service`() {
+        val toDoName1 = "to do 1"
+        val toDoName2 = "to do 2"
+        val toDoListId = 42L
+        val expectedToDos = listOf(ToDo(toDoName1), ToDo(toDoName2))
+        every { toDoListServiceMock.getToDos(eq(toDoListId)) } returns expectedToDos
+
+        val url = "$TO_DO_LIST_PATH/$toDoListId/$TO_DOS_ENDPOINT"
+        mockMvc.get(url)
+                .andExpect {
+                    status { isOk }
+                    jsonPath("$").isArray
+                    jsonPath("$", Matchers.hasSize<Int>(expectedToDos.size))
+                    jsonPath("$[0].name", equalTo(expectedToDos.get(0).name))
+                    jsonPath("$[1].name", equalTo(expectedToDos.get(1).name))
+                }
+    }
+
+    @Test
     fun `should return the created to do when adding a to do to a list`() {
         val toDoToCreate = ToDo("some name")
         val createdToDo = ToDo("some other name")
         val toDoListId = 42L
         every { toDoListServiceMock.addToDo(eq(toDoListId), eq(toDoToCreate)) } returns createdToDo
 
-        val url = "/api/to-do-lists/$toDoListId/to-dos"
+        val url = "$TO_DO_LIST_PATH/$toDoListId/$TO_DOS_ENDPOINT"
         mockMvc.post(url) {
                     content = objectMapper.writeValueAsString(toDoToCreate)
                     contentType = MediaType.APPLICATION_JSON
@@ -52,7 +76,7 @@ class ToDoListItemControllerIntegrationTest {
         val removedToDo = ToDo(name)
         every { toDoListServiceMock.deleteToDo(eq(toDoListId), eq(toDoId)) } returns removedToDo
 
-        val url = "/api/to-do-lists/${toDoListId}/to-dos/${toDoId}"
+        val url = "$TO_DO_LIST_PATH/$toDoListId/$TO_DOS_ENDPOINT/$toDoId"
         mockMvc.delete(url)
                 .andExpect {
                     status { isOk }
