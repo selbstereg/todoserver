@@ -15,8 +15,8 @@ import org.springframework.test.web.servlet.post
 import todoappbackend.todoserver.todolist.ToDoListCrudService
 import todoappbackend.todoserver.todolist.todo.ToDo
 
-@WebMvcTest(controllers = [ToDoController::class])
-class ToDoControllerIntegrationTest {
+@WebMvcTest(controllers = [ToDoListItemController::class])
+class ToDoListItemControllerIntegrationTest {
 
     @Autowired
     private lateinit var mockMvc: MockMvc
@@ -44,7 +44,7 @@ class ToDoControllerIntegrationTest {
     }
 
     @Test
-    fun `Should return the created ToDo when adding a ToDo to a list`() {
+    fun `should return the created ToDo when adding a ToDo to a list`() {
         val toDoToCreate = ToDo("TestToDo")
         every { toDoCrudServiceMock.addToDo(any(), any()) } returns toDoToCreate
 

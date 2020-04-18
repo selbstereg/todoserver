@@ -8,7 +8,7 @@ import todoappbackend.todoserver.todolist.todo.ToDo
 
 @RestController
 @RequestMapping("$TODOLIST_PATH/{toDoListId}/$TODOS_ENDPOINT")
-class ToDoController(
+class ToDoListItemController(
         private val toDoListCrudService: ToDoListCrudService
 ) {
     @PostMapping
