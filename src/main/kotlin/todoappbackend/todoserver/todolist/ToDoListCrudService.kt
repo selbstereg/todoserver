@@ -47,13 +47,14 @@ class ToDoListCrudService(
         return toDo
     }
 
+    fun getToDos(toDoListId: Long): List<ToDo> {
+        val toDoList = getToDoList(toDoListId)
+        return toDoList.toDos
+    }
+
     private fun getToDoList(id: Long): ToDoList {
         val toDoList = toDoListRepo.findByIdOrNull(id)
         toDoList ?: throw EntityNotFoundException(id)
         return toDoList
-    }
-
-    fun getToDos(toDoListId: Long): List<ToDo> {
-        return listOf()
     }
 }

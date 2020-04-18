@@ -63,7 +63,9 @@ class ToDoListCrudServiceTest {
     fun `should trow an exception when to do list with given id is not found`() {
         every { toDoListRepo.findByIdOrNull(any()) } returns null
 
-        invoking { toDoListCrudService.deleteToDoList(42L) } `should throw` EntityNotFoundException::class
+        invoking {
+            toDoListCrudService.deleteToDoList(42L)
+        } `should throw` EntityNotFoundException::class
     }
 
     @Test
@@ -88,7 +90,9 @@ class ToDoListCrudServiceTest {
         every { toDoRepo.save(ofType(ToDo::class)) } returns ToDo("irrelevant to do")
         every { toDoListRepo.findByIdOrNull(any()) } returns null
 
-        invoking { toDoListCrudService.addToDo(42L, ToDo("some name")) } `should throw` EntityNotFoundException::class
+        invoking {
+            toDoListCrudService.addToDo(42L, ToDo("some name"))
+        } `should throw` EntityNotFoundException::class
     }
     
     @Test
@@ -115,14 +119,42 @@ class ToDoListCrudServiceTest {
     fun `should throw an exception when trying to delete a to do but to do list is not found`() {
         every { toDoListRepo.findByIdOrNull(any()) } returns null
 
-        invoking { toDoListCrudService.deleteToDo(42L, 43L) } `should throw` EntityNotFoundException::class
+        invoking {
+            toDoListCrudService.deleteToDo(42L, 43L)
+        } `should throw` EntityNotFoundException::class
     }
 
     @Test
-    fun `should throw an exception when trying to delete a to do but which is not found`() {
+    fun `should throw an exception when trying to delete a to do which is not found`() {
         val emptyToDoList = ToDoList("empty to do list")
         every { toDoListRepo.findByIdOrNull(any()) } returns emptyToDoList
 
-        invoking { toDoListCrudService.deleteToDo(42L, 43L) } `should throw` EntityNotFoundException::class
+        invoking {
+            toDoListCrudService.deleteToDo(42L, 43L)
+        } `should throw` EntityNotFoundException::class
+    }
+
+    @Test
+    fun `should throw an exception when trying to get to dos from list which is not found`() {
+        val toDoListId = 42L
+        every { toDoListRepo.findByIdOrNull(eq(toDoListId)) } returns null
+
+        invoking {
+            toDoListCrudService.getToDos(toDoListId)
+        } `should throw` EntityNotFoundException::class
+    }
+
+    @Test
+    fun `should return to dos of to do list`() {
+        val toDoListId = 42L
+        val toDo1 = ToDo("to do 1")
+        val toDo2 = ToDo("to do 2")
+        expectedToDoList.add(toDo1)
+        expectedToDoList.add(toDo2)
+        every { toDoListRepo.findByIdOrNull(eq(toDoListId)) } returns expectedToDoList
+
+        val toDos = toDoListCrudService.getToDos(toDoListId)
+
+        toDos `should be` expectedToDoList.toDos
     }
 }
