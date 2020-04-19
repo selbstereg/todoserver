@@ -12,7 +12,7 @@ import javax.persistence.Id
 @Entity
 data class ToDo(
         val name: String = "",
-        val priority: Int,
+        var priority: Int,
         @Id
         @GeneratedValue
         var id: Long? = null

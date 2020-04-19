@@ -22,6 +22,8 @@ class ToDoListIntegrationTest {
     @Test
     fun `should allow finding ToDos while to dos are mutated`() {
         val toDoList = ToDoList("Test")
+        // TODO Paul Bauknecht 19 Apr 2020: Most of the time, when createToDo is used, a name is provided, although it is
+        // irrelevant vor the test -> use createToDo() without any arguments.
         val toDo = createToDo("aToDo")
         toDoList.add(toDo)
         toDo.id = 123L
@@ -36,7 +38,7 @@ class ToDoListIntegrationTest {
     @Test
     fun `should allow adding distinct to dos with the same name`() {
         val toDoList = ToDoList("Test")
-        val toDo = createToDo("aToDo")
+        val toDo = createToDo()
         val toDoWithSameName = createToDo("aToDo")
 
         toDoList.add(toDo)
@@ -53,9 +55,10 @@ class ToDoListIntegrationTest {
     @Test
     fun `should consider ids when deciding if to do is contained in to do list`() {
         val toDoList = ToDoList("Test")
-        val toDo = createToDo("aToDo")
+        val name = "to do name"
+        val toDo = createToDo(name)
         toDo.id = 1L
-        val toDoWithSameName = createToDo("aToDo")
+        val toDoWithSameName = createToDo(name)
         toDoWithSameName.id = 2L
 
         toDoList.add(toDo)

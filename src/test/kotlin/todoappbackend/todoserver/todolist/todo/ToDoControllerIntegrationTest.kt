@@ -25,7 +25,7 @@ class ToDoControllerIntegrationTest {
     @Test
     fun `post of altered to do priority should return to do as provided by service`() {
         val priority = 4
-        every { toDoService.updatePriority(eq(toDoId), eq(priority)) } returns expectedToDo
+        every { toDoService.updatePriority(eq(toDoId), eq(priority)) } returns Unit
 
         val url = "/api/to-dos/$toDoId/priority"
         mockMvc.post(url) {
@@ -34,7 +34,6 @@ class ToDoControllerIntegrationTest {
                 }
                 .andExpect {
                     status { isOk }
-                    jsonPath("$.name", equalTo(expectedToDo.name))
                 }
     }
 }
