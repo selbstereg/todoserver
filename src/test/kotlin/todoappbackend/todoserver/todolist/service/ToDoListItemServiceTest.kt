@@ -30,7 +30,7 @@ class ToDoListItemServiceTest {
     fun `should add new to do to a to do list`() {
         val toDoListSlot = slot<ToDoList>()
 
-        val toDoToAdd = createToDo("test to do")
+        val toDoToAdd = createToDo()
         val persistedToDo = createToDo("test to do after saving")
         every { toDoRepo.save(eq(toDoToAdd)) } returns persistedToDo
         every { toDoListService.getToDoList(eq(toDoListId)) } returns someToDoList
@@ -58,8 +58,8 @@ class ToDoListItemServiceTest {
     @Test
     fun `should update the to do list in order to delete to do`() {
         val idOfToDoToDelete = 43L
-        val toDoToDelete = createToDo("some other name", id=idOfToDoToDelete)
-        val toDoToKeep = createToDo("another name", id = 44L)
+        val toDoToDelete = createToDo(id = idOfToDoToDelete)
+        val toDoToKeep = createToDo(id = 44L)
         someToDoList.add(toDoToKeep)
         someToDoList.add(toDoToDelete)
         val toDoListAfterRemovalSlot = slot<ToDoList>()

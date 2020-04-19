@@ -22,7 +22,7 @@ class ToDoListDbIntegrationTest {
 
     @Test
     fun `should save a to do to the database and set its id`() {
-        val savedToDo = entityManager.persistFlushFind(createToDo("some name"))
+        val savedToDo = entityManager.persistFlushFind(createToDo())
         savedToDo.id `should not be` null
     }
 
@@ -34,8 +34,8 @@ class ToDoListDbIntegrationTest {
 
     @Test
     fun `should remove orphaned to dos when removing todo from ToDoList`() {
-        val toDoList = ToDoList("TestList")
-        val toDo = createToDo("TestToDo")
+        val toDoList = ToDoList("some name")
+        val toDo = createToDo()
         toDoList.add(toDo)
         val persistedToDo = entityManager.persistAndFlush(toDo)
         entityManager.persistAndFlush(toDoList)

@@ -19,11 +19,10 @@ class ToDoControllerIntegrationTest {
     @MockkBean
     private lateinit var toDoService: ToDoService
 
-    private var toDoId = 42L
-    private var expectedToDo = createToDo("some name")
 
     @Test
     fun `post of altered to do priority should return to do as provided by service`() {
+        val toDoId = 42L
         val priority = 4
         every { toDoService.updatePriority(eq(toDoId), eq(priority)) } returns Unit
 
