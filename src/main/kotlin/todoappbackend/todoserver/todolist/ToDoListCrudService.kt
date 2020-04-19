@@ -16,6 +16,7 @@ class ToDoListCrudService(
         return toDoListRepo.findAll()
     }
 
+    @Synchronized
     fun createToDoList(name: String): ToDoList {
         return toDoListRepo.save(ToDoList(name))
     }
@@ -26,6 +27,8 @@ class ToDoListCrudService(
         return toDoList
     }
 
+    // TODO Paul Bauknecht 19 Apr 2020: Try to write a test, that creates a lot of to dos concurrently
+    @Synchronized
     fun addToDo(toDoListId: Long, toDo: ToDo): ToDo {
         val savedToDo = toDoRepo.save(toDo)
 
