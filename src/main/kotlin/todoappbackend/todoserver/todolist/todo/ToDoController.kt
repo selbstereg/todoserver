@@ -8,7 +8,7 @@ import todoappbackend.todoserver.todolist.URI_PATH_TO_DOS
 @RequestMapping(URI_PATH_TO_DOS)
 class ToDoController(val toDoService: ToDoService) {
 
-    @PostMapping("/{toDoId}/priority")
+    @PutMapping("/{toDoId}/priority")
     fun updatePriority(@PathVariable toDoId: Long, @RequestBody priority: Int) {
         toDoService.updatePriority(toDoId, priority)
     }
