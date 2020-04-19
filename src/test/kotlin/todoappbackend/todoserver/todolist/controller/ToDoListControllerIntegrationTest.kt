@@ -16,7 +16,7 @@ import org.springframework.test.web.servlet.get
 import org.springframework.test.web.servlet.post
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import todoappbackend.todoserver.todolist.ToDoList
-import todoappbackend.todoserver.todolist.ToDoListService
+import todoappbackend.todoserver.todolist.service.ToDoListService
 
 
 @WebMvcTest(controllers = [ToDoListController::class])

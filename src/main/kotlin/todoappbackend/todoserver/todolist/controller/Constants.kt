@@ -1,4 +1,4 @@
-package todoappbackend.todoserver.todolist
+package todoappbackend.todoserver.todolist.controller
 
 const val PATH_PREFIX = "/api"
 const val TO_DO_LIST_PATH = "$PATH_PREFIX/to-do-lists"

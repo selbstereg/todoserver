@@ -1,9 +1,8 @@
 package todoappbackend.todoserver.todolist.controller
 
 import org.springframework.web.bind.annotation.*
-import todoappbackend.todoserver.todolist.TO_DO_LIST_PATH
 import todoappbackend.todoserver.todolist.ToDoList
-import todoappbackend.todoserver.todolist.ToDoListService
+import todoappbackend.todoserver.todolist.service.ToDoListService
 
 @RestController
 @RequestMapping(TO_DO_LIST_PATH)

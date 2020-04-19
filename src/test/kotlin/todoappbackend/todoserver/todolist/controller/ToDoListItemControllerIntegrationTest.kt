@@ -13,11 +13,9 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.delete
 import org.springframework.test.web.servlet.get
 import org.springframework.test.web.servlet.post
-import todoappbackend.todoserver.todolist.ToDoListItemService
+import todoappbackend.todoserver.todolist.service.ToDoListItemService
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import todoappbackend.todoserver.utils.ToDoBuilder.Companion.createToDo
-import todoappbackend.todoserver.todolist.TO_DOS_ENDPOINT
-import todoappbackend.todoserver.todolist.TO_DO_LIST_PATH
 
 @WebMvcTest(controllers = [ToDoListItemController::class])
 class ToDoListItemControllerIntegrationTest {

@@ -1,8 +1,10 @@
-package todoappbackend.todoserver.todolist
+package todoappbackend.todoserver.todolist.service
 
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Component
 import todoappbackend.todoserver.errorhandling.EntityNotFoundException
+import todoappbackend.todoserver.todolist.ToDoList
+import todoappbackend.todoserver.todolist.ToDoListRepo
 
 @Component
 class ToDoListService (

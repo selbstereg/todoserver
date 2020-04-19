@@ -1,4 +1,4 @@
-package todoappbackend.todoserver.todolist
+package todoappbackend.todoserver.todolist.service
 
 import org.springframework.stereotype.Component
 import todoappbackend.todoserver.errorhandling.EntityNotFoundException

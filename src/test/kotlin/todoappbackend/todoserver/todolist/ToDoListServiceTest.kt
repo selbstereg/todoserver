@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.data.repository.findByIdOrNull
 import todoappbackend.todoserver.errorhandling.EntityNotFoundException
+import todoappbackend.todoserver.todolist.service.ToDoListService
 
 
 class ToDoListServiceTest {
