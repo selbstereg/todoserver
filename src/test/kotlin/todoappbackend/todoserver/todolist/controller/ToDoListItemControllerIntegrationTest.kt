@@ -15,6 +15,8 @@ import org.springframework.test.web.servlet.get
 import org.springframework.test.web.servlet.post
 import todoappbackend.todoserver.todolist.service.ToDoListItemService
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
+import todoappbackend.todoserver.todolist.ENDPOINT_TO_DOS
+import todoappbackend.todoserver.todolist.URI_PATH_TO_DO_LISTS
 import todoappbackend.todoserver.utils.ToDoBuilder.Companion.createToDo
 
 @WebMvcTest(controllers = [ToDoListItemController::class])
@@ -37,7 +39,7 @@ class ToDoListItemControllerIntegrationTest {
         val expectedToDos = listOf(createToDo(toDoName1), createToDo(toDoName2))
         every { toDoListItemService.getToDos(eq(toDoListId)) } returns expectedToDos
 
-        val url = "$TO_DO_LIST_PATH/$toDoListId/$TO_DOS_ENDPOINT"
+        val url = "$URI_PATH_TO_DO_LISTS/$toDoListId/$ENDPOINT_TO_DOS"
         mockMvc.get(url)
                 .andExpect {
                     status { isOk }
@@ -55,7 +57,7 @@ class ToDoListItemControllerIntegrationTest {
         val toDoListId = 42L
         every { toDoListItemService.addToDo(eq(toDoListId), eq(toDoToCreate)) } returns createdToDo
 
-        val url = "$TO_DO_LIST_PATH/$toDoListId/$TO_DOS_ENDPOINT"
+        val url = "$URI_PATH_TO_DO_LISTS/$toDoListId/$ENDPOINT_TO_DOS"
         mockMvc.post(url) {
                     content = objectMapper.writeValueAsString(toDoToCreate)
                     contentType = MediaType.APPLICATION_JSON
@@ -74,7 +76,7 @@ class ToDoListItemControllerIntegrationTest {
         val removedToDo = createToDo(name)
         every { toDoListItemService.deleteToDo(eq(toDoListId), eq(toDoId)) } returns removedToDo
 
-        val url = "$TO_DO_LIST_PATH/$toDoListId/$TO_DOS_ENDPOINT/$toDoId"
+        val url = "$URI_PATH_TO_DO_LISTS/$toDoListId/$ENDPOINT_TO_DOS/$toDoId"
         mockMvc.delete(url)
                 .andExpect {
                     status { isOk }

@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.get
 import org.springframework.test.web.servlet.post
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import todoappbackend.todoserver.todolist.ToDoList
+import todoappbackend.todoserver.todolist.URI_PATH_TO_DO_LISTS
 import todoappbackend.todoserver.todolist.service.ToDoListService
 
 
@@ -49,7 +50,7 @@ class ToDoListControllerIntegrationTest {
     fun `should return to do lists provided by service`() {
         every { toDoListServiceMock.getToDoLists() } returns expectedToDoLists
 
-        val url = "/api/to-do-lists"
+        val url = URI_PATH_TO_DO_LISTS
         mockMvc.get(url)
                 .andExpect {
                     status { isOk }
@@ -59,12 +60,13 @@ class ToDoListControllerIntegrationTest {
                 }
     }
 
+    // TODO Paul Bauknecht 19 Apr 2020: Many test names state, what the expected behavior is. They should also state, what the tested method is
     @Test
     fun `should return created to do list`() {
         val toDoListName = "some name"
         every { toDoListServiceMock.createToDoList(eq(toDoListName)) } returns ToDoList(toDoListName)
 
-        val url = "/api/to-do-lists"
+        val url = URI_PATH_TO_DO_LISTS
         mockMvc.post(url) {
                     content = toDoListName
                 }
@@ -79,7 +81,7 @@ class ToDoListControllerIntegrationTest {
         val toDoListId = 42L
         every { toDoListServiceMock.deleteToDoList(eq(42L)) } returns expectedToDoList
 
-        val url = "/api/to-do-lists/${toDoListId}"
+        val url = "$URI_PATH_TO_DO_LISTS/${toDoListId}"
         mockMvc.delete(url)
                 .andExpect {
                     status { isOk }

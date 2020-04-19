@@ -1,4 +1,4 @@
-package todoappbackend.todoserver.todolist
+package todoappbackend.todoserver.todolist.service
 
 import io.mockk.every
 import io.mockk.mockk
@@ -10,7 +10,8 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.data.repository.findByIdOrNull
 import todoappbackend.todoserver.errorhandling.EntityNotFoundException
-import todoappbackend.todoserver.todolist.service.ToDoListService
+import todoappbackend.todoserver.todolist.ToDoList
+import todoappbackend.todoserver.todolist.ToDoListRepo
 
 
 class ToDoListServiceTest {
