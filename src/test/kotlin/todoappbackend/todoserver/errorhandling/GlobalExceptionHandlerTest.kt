@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.get
+import todoappbackend.todoserver.utils.EXCEPTION_HANDLER_TEST_ENDPOINT
 import todoappbackend.todoserver.utils.GlobalExceptionHandlerTestHelperController
 
 @WebMvcTest(controllers = [GlobalExceptionHandlerTestHelperController::class])
@@ -15,10 +16,11 @@ class GlobalExceptionHandlerTest {
 
     @Test
     fun `should handle EntityNotFoundException by responding with 404`() {
-        mockMvc.get("/test-endpoint").andExpect {
-            status { isNotFound }
-            content { json("\"Entity with id 42 not found\"") }
-        }
+        mockMvc.get(EXCEPTION_HANDLER_TEST_ENDPOINT)
+                .andExpect {
+                    status { isNotFound }
+                    content { json("\"Entity with id 42 not found\"") }
+                }
     }
 
 }

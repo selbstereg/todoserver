@@ -1,29 +1,22 @@
 package todoappbackend.todoserver.todolist.todo
 
-import io.mockk.clearAllMocks
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.slot
 import org.amshove.kluent.`should be`
 import org.amshove.kluent.`should throw`
 import org.amshove.kluent.invoking
-import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
 import org.springframework.data.repository.findByIdOrNull
 import todoappbackend.todoserver.errorhandling.EntityNotFoundException
+import todoappbackend.todoserver.utils.TestWithMockkMocks
 import todoappbackend.todoserver.utils.ToDoBuilder.Companion.createToDo
 
-class ToDoServiceTest {
+class ToDoServiceTest : TestWithMockkMocks() {
     private val repo: ToDoRepo = mockk()
     private val toDoId = 42L
     private val expectedToDo = createToDo()
     private val toDoService = ToDoService(repo)
-
-    @AfterEach
-    fun tearDown() {
-        // TODO Paul Bauknecht 19 Apr 2020: Check if you forgot this in any other tests
-        clearAllMocks()
-    }
 
     @Test
     fun `should use repo to update priority of to do`() {

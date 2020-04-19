@@ -9,9 +9,10 @@ import org.junit.jupiter.api.Test
 import todoappbackend.todoserver.errorhandling.EntityNotFoundException
 import todoappbackend.todoserver.todolist.ToDoList
 import todoappbackend.todoserver.todolist.todo.ToDoRepo
+import todoappbackend.todoserver.utils.TestWithMockkMocks
 import todoappbackend.todoserver.utils.ToDoBuilder.Companion.createToDo
 
-class ToDoListItemServiceTest {
+class ToDoListItemServiceTest : TestWithMockkMocks() {
 
     private val toDoListService: ToDoListService = mockk()
     private val toDoRepo: ToDoRepo = mockk()

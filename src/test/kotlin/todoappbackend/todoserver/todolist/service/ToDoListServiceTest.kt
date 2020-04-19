@@ -12,9 +12,10 @@ import org.springframework.data.repository.findByIdOrNull
 import todoappbackend.todoserver.errorhandling.EntityNotFoundException
 import todoappbackend.todoserver.todolist.ToDoList
 import todoappbackend.todoserver.todolist.ToDoListRepo
+import todoappbackend.todoserver.utils.TestWithMockkMocks
 
 
-class ToDoListServiceTest {
+class ToDoListServiceTest : TestWithMockkMocks() {
     private val toDoListRepo: ToDoListRepo = mockk()
     private lateinit var toDoListService: ToDoListService
     private val toDoListId = 42L

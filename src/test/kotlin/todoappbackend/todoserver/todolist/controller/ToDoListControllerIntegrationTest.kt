@@ -1,11 +1,9 @@
 package todoappbackend.todoserver.todolist.controller
 
 import com.ninjasquad.springmockk.MockkBean
-import io.mockk.clearMocks
 import io.mockk.every
 import org.hamcrest.Matchers.equalTo
 import org.hamcrest.Matchers.hasSize
-import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -18,10 +16,11 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPat
 import todoappbackend.todoserver.todolist.ToDoList
 import todoappbackend.todoserver.todolist.URI_PATH_TO_DO_LISTS
 import todoappbackend.todoserver.todolist.service.ToDoListService
+import todoappbackend.todoserver.utils.TestWithMockkMocks
 
 
 @WebMvcTest(controllers = [ToDoListController::class])
-class ToDoListControllerIntegrationTest {
+class ToDoListControllerIntegrationTest : TestWithMockkMocks() {
 
     private lateinit var expectedToDoList: ToDoList
     private lateinit var expectedToDoLists: List<ToDoList>
@@ -33,17 +32,10 @@ class ToDoListControllerIntegrationTest {
     @MockkBean
     private lateinit var toDoListServiceMock: ToDoListService
 
-
-
     @BeforeEach
     fun setUp() {
         expectedToDoList = ToDoList("some name")
         expectedToDoLists = listOf(expectedToDoList)
-    }
-
-    @AfterEach
-    fun tearDown() {
-        clearMocks(toDoListServiceMock)
     }
 
     @Test
