@@ -3,25 +3,25 @@ package todoappbackend.todoserver.todolist.controller
 import org.springframework.web.bind.annotation.*
 import todoappbackend.todoserver.todolist.TO_DO_LIST_PATH
 import todoappbackend.todoserver.todolist.ToDoList
-import todoappbackend.todoserver.todolist.ToDoListCrudService
+import todoappbackend.todoserver.todolist.ToDoListService
 
 @RestController
 @RequestMapping(TO_DO_LIST_PATH)
 class ToDoListController(
-        private val toDoListCrudService: ToDoListCrudService
+        private val toDoListService: ToDoListService
 ) {
     @GetMapping
     fun getToDoLists(): Collection<ToDoList> {
-        return toDoListCrudService.getToDoLists()
+        return toDoListService.getToDoLists()
     }
 
     @PostMapping
     fun createToDoList(@RequestBody name: String): ToDoList {
-        return toDoListCrudService.createToDoList(name)
+        return toDoListService.createToDoList(name)
     }
 
     @DeleteMapping("/{toDoListId}")
     fun deleteToDoList(@PathVariable toDoListId: Long): ToDoList {
-        return toDoListCrudService.deleteToDoList(toDoListId)
+        return toDoListService.deleteToDoList(toDoListId)
     }
 }

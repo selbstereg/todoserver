@@ -13,7 +13,7 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.delete
 import org.springframework.test.web.servlet.get
 import org.springframework.test.web.servlet.post
-import todoappbackend.todoserver.todolist.ToDoListCrudService
+import todoappbackend.todoserver.todolist.ToDoListItemService
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import todoappbackend.todoserver.utils.ToDoBuilder.Companion.createToDo
 import todoappbackend.todoserver.todolist.TO_DOS_ENDPOINT
@@ -26,7 +26,7 @@ class ToDoListItemControllerIntegrationTest {
     private lateinit var mockMvc: MockMvc
 
     @MockkBean
-    private lateinit var toDoListServiceMock: ToDoListCrudService
+    private lateinit var toDoListItemService: ToDoListItemService
 
     @Autowired
     private lateinit var objectMapper: ObjectMapper
@@ -37,7 +37,7 @@ class ToDoListItemControllerIntegrationTest {
         val toDoName2 = "to do 2"
         val toDoListId = 42L
         val expectedToDos = listOf(createToDo(toDoName1), createToDo(toDoName2))
-        every { toDoListServiceMock.getToDos(eq(toDoListId)) } returns expectedToDos
+        every { toDoListItemService.getToDos(eq(toDoListId)) } returns expectedToDos
 
         val url = "$TO_DO_LIST_PATH/$toDoListId/$TO_DOS_ENDPOINT"
         mockMvc.get(url)
@@ -55,7 +55,7 @@ class ToDoListItemControllerIntegrationTest {
         val toDoToCreate = createToDo("some name")
         val createdToDo = createToDo("some other name")
         val toDoListId = 42L
-        every { toDoListServiceMock.addToDo(eq(toDoListId), eq(toDoToCreate)) } returns createdToDo
+        every { toDoListItemService.addToDo(eq(toDoListId), eq(toDoToCreate)) } returns createdToDo
 
         val url = "$TO_DO_LIST_PATH/$toDoListId/$TO_DOS_ENDPOINT"
         mockMvc.post(url) {
@@ -74,7 +74,7 @@ class ToDoListItemControllerIntegrationTest {
         val toDoId = 43L
         val name = "to be removed"
         val removedToDo = createToDo(name)
-        every { toDoListServiceMock.deleteToDo(eq(toDoListId), eq(toDoId)) } returns removedToDo
+        every { toDoListItemService.deleteToDo(eq(toDoListId), eq(toDoId)) } returns removedToDo
 
         val url = "$TO_DO_LIST_PATH/$toDoListId/$TO_DOS_ENDPOINT/$toDoId"
         mockMvc.delete(url)

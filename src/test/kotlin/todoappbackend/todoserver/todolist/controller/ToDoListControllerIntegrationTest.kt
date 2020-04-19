@@ -16,7 +16,7 @@ import org.springframework.test.web.servlet.get
 import org.springframework.test.web.servlet.post
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import todoappbackend.todoserver.todolist.ToDoList
-import todoappbackend.todoserver.todolist.ToDoListCrudService
+import todoappbackend.todoserver.todolist.ToDoListService
 
 
 @WebMvcTest(controllers = [ToDoListController::class])
@@ -30,7 +30,7 @@ class ToDoListControllerIntegrationTest {
     private lateinit var mockMvc: MockMvc
 
     @MockkBean
-    private lateinit var toDoListServiceMock: ToDoListCrudService
+    private lateinit var toDoListServiceMock: ToDoListService
 
 
 
