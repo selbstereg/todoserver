@@ -49,12 +49,26 @@ class ToDoControllerIntegrationTest : TestWithMockkMocks() {
 
         val url = URI_PATH_TO_DOS
         mockMvc.put(url) {
-            content = objectMapper.writeValueAsString(toDoToUpdate)
-            contentType = MediaType.APPLICATION_JSON
-        }
+                    content = objectMapper.writeValueAsString(toDoToUpdate)
+                    contentType = MediaType.APPLICATION_JSON
+                }
                 .andExpect {
                     status { isOk }
                     jsonPath("$.name", equalTo(updatedToDo.name))
+                }
+    }
+
+    @Test
+    fun `put of to do without id should yield response status "bad request"`() {
+        val url = URI_PATH_TO_DOS
+        val toDoWithoutId = createToDo()
+
+        mockMvc.put(url) {
+                    content = objectMapper.writeValueAsString(toDoWithoutId)
+                    contentType = MediaType.APPLICATION_JSON
+                }
+                .andExpect {
+                    status { isBadRequest }
                 }
     }
 }
