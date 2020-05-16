@@ -51,6 +51,9 @@ class ToDoListItemControllerIntegrationTest : TestWithMockkMocks() {
                 }
     }
 
+    // TODO Paul Bauknecht 16 05 2020: Using jsonPath is queer. Each time, you add a new
+    //  property to the serialized class, you would have to extend the test. Try to do sth with jackson
+    //  that is more general.
     @Test
     fun `should return the created to do when adding a to do to a list`() {
         val toDoToCreate = createToDo("some name")

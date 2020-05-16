@@ -12,4 +12,9 @@ class ToDoController(val toDoService: ToDoService) {
     fun updatePriority(@PathVariable toDoId: Long, @RequestBody priority: Int) {
         toDoService.updatePriority(toDoId, priority)
     }
+
+    @PutMapping()
+    fun updateToDo(@RequestBody toDo: ToDo): ToDo {
+        return toDoService.update(toDo)
+    }
 }

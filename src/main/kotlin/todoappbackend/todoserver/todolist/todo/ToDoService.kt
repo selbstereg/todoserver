@@ -13,4 +13,8 @@ class ToDoService(val repo: ToDoRepo) {
         toDo.priority = priority
         repo.save(toDo)
     }
+
+    fun update(toDo: ToDo): ToDo {
+        TODO("Not yet implemented")
+    }
 }
