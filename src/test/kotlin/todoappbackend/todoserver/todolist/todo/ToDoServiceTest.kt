@@ -40,4 +40,14 @@ class ToDoServiceTest : TestWithMockkMocks() {
             toDoService.updatePriority(toDoId, 42)
         } `should throw` EntityNotFoundException::class
     }
+
+    @Test
+    fun `should delegate update of to do to repo`() {
+        val toDo = createToDo("to do to update")
+        every { repo.save(eq(toDo)) } returns expectedToDo
+
+        val actualToDo = toDoService.update(toDo)
+
+        actualToDo `should be` expectedToDo
+    }
 }

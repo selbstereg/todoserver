@@ -15,6 +15,6 @@ class ToDoService(val repo: ToDoRepo) {
     }
 
     fun update(toDo: ToDo): ToDo {
-        TODO("Not yet implemented")
+        return repo.save(toDo)
     }
 }
