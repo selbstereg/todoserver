@@ -14,10 +14,11 @@ class ToDoBuilder {
     companion object {
         fun createToDo(
                 name: String = "name",
+                details: String = "details",
                 priority: Int = 0,
                 id: Long? = null
         ): ToDo {
-            return ToDo(name, priority, id)
+            return ToDo(name, details, priority, id)
         }
     }
 }

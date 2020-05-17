@@ -1,5 +1,6 @@
 package todoappbackend.todoserver.todolist.todo
 
+import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
@@ -15,7 +16,9 @@ import javax.persistence.Id
 
 @Entity
 data class ToDo(
-        val name: String = "",
+        val name: String,
+        @Column(length = 1000)
+        val details: String = "",
         var priority: Int,
         @Id
         @GeneratedValue
