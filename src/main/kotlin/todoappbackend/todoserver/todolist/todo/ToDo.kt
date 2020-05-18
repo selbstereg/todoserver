@@ -17,7 +17,7 @@ import javax.persistence.Id
 @Entity
 data class ToDo(
         val name: String,
-        @Column(length = 1000)
+        @Column(length = 4095)
         val details: String = "",
         var priority: Int,
         @Id
